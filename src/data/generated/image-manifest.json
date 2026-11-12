@@ -1,0 +1,292 @@
+{
+  "cars": {
+    "accent": {
+      "width": 635,
+      "height": 322,
+      "variants": [
+        {
+          "src": "/images/cars/accent/accent-480.webp",
+          "width": 480,
+          "height": 243
+        },
+        {
+          "src": "/images/cars/accent/accent-635.webp",
+          "width": 635,
+          "height": 322
+        }
+      ]
+    },
+    "creta": {
+      "width": 1048,
+      "height": 523,
+      "variants": [
+        {
+          "src": "/images/cars/creta/creta-480.webp",
+          "width": 480,
+          "height": 240
+        },
+        {
+          "src": "/images/cars/creta/creta-960.webp",
+          "width": 960,
+          "height": 479
+        }
+      ]
+    },
+    "custin": {
+      "width": 662,
+      "height": 297,
+      "variants": [
+        {
+          "src": "/images/cars/custin/custin-480.webp",
+          "width": 480,
+          "height": 215
+        },
+        {
+          "src": "/images/cars/custin/custin-662.webp",
+          "width": 662,
+          "height": 297
+        }
+      ]
+    },
+    "elantra": {
+      "width": 580,
+      "height": 264,
+      "variants": [
+        {
+          "src": "/images/cars/elantra/elantra-480.webp",
+          "width": 480,
+          "height": 218
+        },
+        {
+          "src": "/images/cars/elantra/elantra-580.webp",
+          "width": 580,
+          "height": 264
+        }
+      ]
+    },
+    "grand-i10": {
+      "width": 578,
+      "height": 273,
+      "variants": [
+        {
+          "src": "/images/cars/grand-i10/grand-i10-480.webp",
+          "width": 480,
+          "height": 227
+        },
+        {
+          "src": "/images/cars/grand-i10/grand-i10-578.webp",
+          "width": 578,
+          "height": 273
+        }
+      ]
+    },
+    "palisade": {
+      "width": 657,
+      "height": 289,
+      "variants": [
+        {
+          "src": "/images/cars/palisade/palisade-480.webp",
+          "width": 480,
+          "height": 211
+        },
+        {
+          "src": "/images/cars/palisade/palisade-657.webp",
+          "width": 657,
+          "height": 289
+        }
+      ]
+    },
+    "santa-fe": {
+      "width": 629,
+      "height": 297,
+      "variants": [
+        {
+          "src": "/images/cars/santa-fe/santa-fe-480.webp",
+          "width": 480,
+          "height": 227
+        },
+        {
+          "src": "/images/cars/santa-fe/santa-fe-629.webp",
+          "width": 629,
+          "height": 297
+        }
+      ]
+    },
+    "stargazer": {
+      "width": 927,
+      "height": 465,
+      "variants": [
+        {
+          "src": "/images/cars/stargazer/stargazer-480.webp",
+          "width": 480,
+          "height": 241
+        },
+        {
+          "src": "/images/cars/stargazer/stargazer-927.webp",
+          "width": 927,
+          "height": 465
+        }
+      ]
+    },
+    "tucson": {
+      "width": 617,
+      "height": 282,
+      "variants": [
+        {
+          "src": "/images/cars/tucson/tucson-480.webp",
+          "width": 480,
+          "height": 219
+        },
+        {
+          "src": "/images/cars/tucson/tucson-617.webp",
+          "width": 617,
+          "height": 282
+        }
+      ]
+    },
+    "venue": {
+      "width": 582,
+      "height": 303,
+      "variants": [
+        {
+          "src": "/images/cars/venue/venue-480.webp",
+          "width": 480,
+          "height": 250
+        },
+        {
+          "src": "/images/cars/venue/venue-582.webp",
+          "width": 582,
+          "height": 303
+        }
+      ]
+    }
+  },
+  "news": {
+    "palisade-0056": {
+      "width": 1280,
+      "height": 853,
+      "variants": [
+        {
+          "src": "/images/news/palisade-0056-640.webp",
+          "width": 640,
+          "height": 427
+        },
+        {
+          "src": "/images/news/palisade-0056-960.webp",
+          "width": 960,
+          "height": 640
+        },
+        {
+          "src": "/images/news/palisade-0056-1280.webp",
+          "width": 1280,
+          "height": 853
+        }
+      ]
+    },
+    "palisade-8485": {
+      "width": 1280,
+      "height": 853,
+      "variants": [
+        {
+          "src": "/images/news/palisade-8485-640.webp",
+          "width": 640,
+          "height": 427
+        },
+        {
+          "src": "/images/news/palisade-8485-960.webp",
+          "width": 960,
+          "height": 640
+        },
+        {
+          "src": "/images/news/palisade-8485-1280.webp",
+          "width": 1280,
+          "height": 853
+        }
+      ]
+    },
+    "palisade-8524": {
+      "width": 1280,
+      "height": 853,
+      "variants": [
+        {
+          "src": "/images/news/palisade-8524-640.webp",
+          "width": 640,
+          "height": 427
+        },
+        {
+          "src": "/images/news/palisade-8524-960.webp",
+          "width": 960,
+          "height": 640
+        },
+        {
+          "src": "/images/news/palisade-8524-1280.webp",
+          "width": 1280,
+          "height": 853
+        }
+      ]
+    },
+    "tucson-hev-1": {
+      "width": 1280,
+      "height": 853,
+      "variants": [
+        {
+          "src": "/images/news/tucson-hev-1-640.webp",
+          "width": 640,
+          "height": 427
+        },
+        {
+          "src": "/images/news/tucson-hev-1-960.webp",
+          "width": 960,
+          "height": 640
+        },
+        {
+          "src": "/images/news/tucson-hev-1-1280.webp",
+          "width": 1280,
+          "height": 853
+        }
+      ]
+    },
+    "tucson-hev-ext2": {
+      "width": 1280,
+      "height": 853,
+      "variants": [
+        {
+          "src": "/images/news/tucson-hev-ext2-640.webp",
+          "width": 640,
+          "height": 427
+        },
+        {
+          "src": "/images/news/tucson-hev-ext2-960.webp",
+          "width": 960,
+          "height": 640
+        },
+        {
+          "src": "/images/news/tucson-hev-ext2-1280.webp",
+          "width": 1280,
+          "height": 853
+        }
+      ]
+    },
+    "tucson-hev-run1": {
+      "width": 1280,
+      "height": 853,
+      "variants": [
+        {
+          "src": "/images/news/tucson-hev-run1-640.webp",
+          "width": 640,
+          "height": 427
+        },
+        {
+          "src": "/images/news/tucson-hev-run1-960.webp",
+          "width": 960,
+          "height": 640
+        },
+        {
+          "src": "/images/news/tucson-hev-run1-1280.webp",
+          "width": 1280,
+          "height": 853
+        }
+      ]
+    }
+  }
+}
