@@ -61,8 +61,19 @@ Content-Type: application/json
   "phone": "0912345678",          // đã chuẩn hóa, đầu số di động VN
   "vehicle": "tucson",            // slug mẫu xe
   "version": "2.0 Xăng Đặc biệt", // có thể rỗng
+  "color": "Đỏ đô",               // màu ngoại thất khách chọn, có thể rỗng
   "province": "Hà Nội",
-  "paymentMethod": "tra-thang",   // "tra-thang" | "tra-gop"
+  "paymentMethod": "tra-gop",     // "tra-thang" | "tra-gop"
+  "financing": {                  // chỉ có khi khách gửi từ bảng tính trả góp và chọn "Trả góp"
+    "carPrice": 769000000,
+    "downPaymentPercent": 20,
+    "downPayment": 153800000,
+    "loanAmount": 615200000,
+    "termMonths": 60,
+    "annualRatePercent": 9,
+    "monthlyPayment": 12770540,
+    "estimateOnly": true          // số liệu ước tính phía khách, không phải phê duyệt khoản vay
+  },
   "source": "/san-pham/tucson",   // trang gửi form
   "submittedAt": "2026-11-12T08:00:00.000Z"
 }
@@ -73,6 +84,20 @@ Content-Type: application/json
 - Có trường honeypot `website` chống bot; nên bổ sung rate-limit/captcha phía server.
 - Có thể thay `fetch` bằng tích hợp CRM, Google Sheets, Laravel API… mà không cần sửa UI.
 - Chỉ khi chạy `npm run dev`, đặt `VITE_LEAD_MOCK=true` để thử giao diện thành công (dữ liệu không được gửi).
+
+### Bảng tính trả góp
+
+- Section `#bao-gia` trên trang chủ, sản phẩm, bảng giá, khuyến mãi, bài viết và trang chi tiết xe là
+  [InstallmentSection](src/components/installment/InstallmentSection.tsx) ("Ước tính trả góp hàng tháng").
+  Trang chi tiết tự chọn sẵn mẫu xe đang xem.
+- Công thức trả đều (dư nợ giảm dần), trong [src/utils/installment.ts](src/utils/installment.ts):
+  trả trước = giá × tỷ lệ; vay P = giá − trả trước; r = lãi năm / 12; M = P·r / (1 − (1 + r)^−n).
+- Giới hạn và giá trị mặc định nằm trong `INSTALLMENT_LIMITS`: trả trước 10–80% (bước 5, mặc định 20%),
+  kỳ hạn 12–96 tháng (mặc định 60), lãi suất 5–15%/năm (bước 0,5, mặc định 9%). **Lãi suất mặc định chỉ là giả
+  định**, nên chỉnh theo mức tham khảo thực tế của ngân hàng liên kết. Giá xe lấy sẵn từ bảng giá và khách có thể sửa.
+- Nút "Đăng ký tư vấn trả góp" và mọi nút "Báo giá" khác mở form tư vấn trong hộp thoại (không chuyển trang),
+  gửi kèm phương án đã ước tính. Trang `/lien-he` vẫn giữ form hiển thị trực tiếp.
+- Không kết nối ngân hàng. Kết quả chỉ là ước tính, không phải cam kết cho vay; nội dung này đã ghi rõ trên giao diện.
 
 ## Hình ảnh
 
@@ -89,10 +114,38 @@ npm run icons    # favicon, apple-touch-icon, icon PWA, logo.png, site.webmanife
 Kích thước ảnh được ghi vào `src/data/generated/image-manifest.json` để component tự khai báo
 `width/height` (tránh CLS), `srcset`/`sizes`, và `loading="lazy"` cho ảnh dưới màn hình đầu.
 
+### Màu xe & ảnh theo màu
+
+```
+src/data/vehicles/<slug>/colors.ts          # danh sách màu (id, tên, mã swatch), màu mặc định, trạng thái
+src/assets/images/cars/<slug>/colors/*.png  # mỗi màu một ảnh thật, cùng góc 3/4 phía trước
+```
+
+```bash
+npm run colors   # đồng bộ màu + ảnh từ API Hyundai Thành Công (cần curl), sau đó chạy npm run images
+```
+
+- Script chọn đúng khung hình 3/4 phía trước trong bộ ảnh 360° của từng màu (so khớp hình dáng với ảnh gốc).
+  Màu nào không tìm được khung cùng góc được đánh dấu `noImage: true`: UI vẫn cho chọn màu nhưng hiển thị nhãn
+  "Chưa có ảnh màu …", **không** tô màu giả bằng CSS filter.
+- Mẫu chưa có bộ ảnh theo màu: `status: 'pending'` (card hiện "Màu sắc: đang cập nhật").
+  Hiện tại: **Grand i10, Custin** (website chính thức chưa công bố ảnh theo màu), **Palisade** (bộ ảnh màu trên
+  website là thế hệ trước). Bổ sung bằng cách thêm ảnh vào `colors/` và cập nhật `colors.ts`.
+- Màu theo phiên bản: thêm `versions: ['Tên phiên bản', …]` cho màu tương ứng khi có dữ liệu chính thức.
+- Component dùng chung: [VehicleColorSelector](src/components/vehicles/color/VehicleColorSelector.tsx),
+  [VehicleColorSwatch](src/components/vehicles/color/VehicleColorSwatch.tsx),
+  [VehicleImagePreview](src/components/vehicles/color/VehicleImagePreview.tsx); trạng thái màu theo từng xe ở
+  [useVehicleColor](src/hooks/useVehicleColor.ts) (lưu sessionStorage, truyền sang trang chi tiết qua `?mau=`, sang
+  form qua `/lien-he?xe=…&mau=…&phien-ban=…`).
+
 **Bản quyền ảnh:** ảnh xe và ảnh bài viết hiện lấy từ website chính thức của Hyundai Thành Công
 (hyundai-api.thanhcong.vn). Đại lý cần xác nhận quyền sử dụng theo thỏa thuận đại lý ủy quyền, hoặc thay bằng
-ảnh do showroom tự chụp/được cấp phép. Logo hiện là bản SVG vẽ mô phỏng ([src/components/ui/Logo.tsx](src/components/ui/Logo.tsx)), nên thay bằng file logo trong bộ nhận diện chính thức
-được Hyundai cấp cho đại lý.
+ảnh do showroom tự chụp/được cấp phép.
+
+**Logo:** [Logo.tsx](src/components/ui/Logo.tsx) dùng `public/hyundai-tc-motor-blue.svg` trên nền sáng và
+`public/hyundai-tc-motor-black.svg` trên nền tối (đảo sang trắng bằng CSS). Hai file được vector hóa (potrace) từ ảnh logo gốc 1366×96 đại lý cung cấp.
+Khi có file chính thức trong bộ nhận diện Hyundai cấp cho đại lý, chỉ cần ghi đè đúng tên file. Favicon/icon
+(`npm run icons`) dùng cùng biểu tượng chữ H.
 
 ## SEO
 

@@ -2,7 +2,7 @@ import { Suspense, useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import { Header } from './Header'
 import { Footer } from './Footer'
-import { FloatingContact } from './FloatingContact'
+import { FloatingContact, hasMobileContactBar } from './FloatingContact'
 
 /** Cuộn lên đầu khi đổi trang; cuộn tới #hash nếu có */
 function ScrollManager() {
@@ -46,6 +46,8 @@ export function Layout() {
         </Suspense>
       </main>
       <Footer />
+      {/* chừa chỗ cho thanh liên hệ cố định dưới đáy (mobile) để không che nội dung cuối footer */}
+      {hasMobileContactBar && <div aria-hidden className="h-[calc(4.5rem+env(safe-area-inset-bottom))] bg-brand-900 sm:hidden" />}
       <FloatingContact />
     </>
   )

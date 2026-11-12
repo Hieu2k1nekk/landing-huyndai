@@ -1,83 +1,228 @@
-import { ArrowRight, BadgeCheck, CalendarCheck, Wallet } from 'lucide-react'
-import { getStartingPrice, getVehicle, HERO_VEHICLE_SLUG } from '@/data/vehicles'
-import { pricing } from '@/config/site'
-import { formatPriceShort } from '@/utils/format'
-import { CarImage } from '@/components/ui/CarImage'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
+import { getStartingPrice, getVehicle } from '@/data/vehicles'
+import { getHeroImage } from '@/utils/images'
 import { ButtonLink } from '@/components/ui/Button'
+import { PriceTag } from '@/components/ui/PriceTag'
 import { QuoteLink } from '@/components/forms/QuoteLink'
+import { cn } from '@/utils/cn'
 
-const services = [
-  { icon: Wallet, label: 'Tư vấn trả góp' },
-  { icon: CalendarCheck, label: 'Đăng ký lái thử' },
-  { icon: BadgeCheck, label: 'Xe chính hãng' },
-]
+/** Ảnh hero là ảnh chụp thực tế của chính mẫu xe (nguồn: Hyundai Thành Công) */
+const SLIDES = [
+  {
+    vehicle: 'tucson',
+    image: 'tucson-hev-run1',
+    alt: 'Hyundai Tucson màu đỏ vận hành trên đường phố',
+    position: '47% 62%',
+    headline: 'Tiên phong trong thiết kế, vững vàng trên mọi cung đường.',
+  },
+  {
+    vehicle: 'palisade',
+    image: 'palisade-0056',
+    alt: 'Hyundai Palisade thế hệ mới màu trắng trên cung đường đèo',
+    position: '49% 55%',
+    headline: 'Bề thế, rộng rãi cho những hành trình cùng cả gia đình.',
+  },
+] as const
 
-/**
- * Hero bất đối xứng: nội dung bên trái, tấm nền "showroom" xanh đậm
- * tràn mép phải với ảnh xe lớn (ảnh LCP – tải ưu tiên, không lazy).
- */
+const DURATION = 7000
+
 export function Hero() {
-  const car = getVehicle(HERO_VEHICLE_SLUG)!
-  const price = getStartingPrice(car)
+  const [index, setIndex] = useState(0)
+  /** Tự chuyển slide chỉ bật sau khi hydrate (HTML tĩnh luôn hiển thị slide 1) */
+  const [mounted, setMounted] = useState(false)
+  const [paused, setPaused] = useState(false)
+  const [hovering, setHovering] = useState(false)
+  const [focused, setFocused] = useState(false)
+  const [hiddenTab, setHiddenTab] = useState(false)
+  const [runKey, setRunKey] = useState(0)
+  const rootRef = useRef<HTMLElement>(null)
+
+  const count = SLIDES.length
+  const go = useCallback(
+    (i: number) => {
+      setIndex(((i % count) + count) % count)
+      setRunKey((k) => k + 1)
+    },
+    [count],
+  )
+
+  useEffect(() => {
+    setMounted(true)
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) setPaused(true)
+    const onVis = () => setHiddenTab(document.hidden)
+    document.addEventListener('visibilitychange', onVis)
+    return () => document.removeEventListener('visibilitychange', onVis)
+  }, [])
+
+  const playing = mounted && !paused && !hovering && !focused && !hiddenTab
+
+  useEffect(() => {
+    if (!playing) return
+    const t = window.setTimeout(() => go(index + 1), DURATION)
+    return () => window.clearTimeout(t)
+  }, [playing, index, runKey, go])
 
   return (
-    <section aria-labelledby="hero-title" className="relative overflow-hidden bg-white">
-      {/* Tấm nền showroom */}
-      <div
-        aria-hidden
-        className="showroom-panel absolute inset-y-0 right-0 hidden w-[46%] rounded-bl-[3rem] lg:block"
-      />
-
-      <div className="container-page relative grid items-center gap-8 pt-10 pb-0 lg:min-h-[640px] lg:grid-cols-[1.02fr_1fr] lg:gap-6 lg:py-16 xl:min-h-[700px]">
-        <div className="max-w-xl animate-[fade-up_0.7s_var(--ease-out-soft)_both]">
-          <p className="eyebrow mb-5">
-            <span className="h-px w-6 bg-accent" aria-hidden />
-            Đại lý ủy quyền Hyundai
-          </p>
-          <h1 id="hero-title" className="text-[2.25rem] leading-[1.08] font-bold sm:text-5xl xl:text-[3.75rem]">
-            Khám phá phong cách di chuyển mới cùng <span className="text-brand">Hyundai</span>
-          </h1>
-          <p className="mt-5 max-w-lg text-base text-muted sm:text-lg">
-            Đầy đủ các dòng sedan, SUV, MPV và hatchback chính hãng. Nhận báo giá lăn bánh, tư vấn trả góp và lịch lái
-            thử phù hợp với bạn.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink to="/san-pham" size="lg" variant="primary">
-              Khám phá dòng xe <ArrowRight className="size-5" aria-hidden />
-            </ButtonLink>
-            <QuoteLink size="lg" variant="outline">
-              Nhận báo giá
-            </QuoteLink>
-          </div>
-          <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/80">
-            {services.map(({ icon: Icon, label }) => (
-              <li key={label} className="inline-flex items-center gap-2">
-                <Icon className="size-4.5 text-accent" aria-hidden />
-                {label}
-              </li>
-            ))}
-          </ul>
+    <section
+      ref={rootRef}
+      aria-roledescription="carousel"
+      aria-label="Mẫu xe tiêu biểu"
+      className="relative -mt-16 overflow-hidden bg-brand-900 text-white lg:-mt-[4.5rem]"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setFocused(false)
+      }}
+    >
+      <div className="grid lg:h-[clamp(640px,100svh,880px)] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+        {/* ---------- Ảnh (trên mobile nằm trên, desktop tràn mép phải) ---------- */}
+        <div className="relative aspect-square overflow-hidden sm:aspect-[4/3] md:aspect-[16/10] lg:order-2 lg:aspect-auto lg:h-full">
+          {SLIDES.map((s, i) => {
+            const img = getHeroImage(s.image)
+            const active = i === index
+            if (!img) return null
+            return (
+              <picture
+                key={s.image}
+                className={cn(
+                  'absolute inset-0 transition-opacity duration-1000 ease-out',
+                  active ? 'opacity-100' : 'opacity-0',
+                )}
+                aria-hidden={!active}
+              >
+                <source media="(min-width: 640px)" srcSet={img.landscapeSrcSet} sizes="(min-width: 1024px) 60vw, 100vw" />
+                <img
+                  src={img.src}
+                  srcSet={img.squareSrcSet}
+                  sizes="100vw"
+                  width={img.width}
+                  height={img.height}
+                  alt={s.alt}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={i === 0 ? 'high' : 'low'}
+                  decoding={i === 0 ? 'sync' : 'async'}
+                  style={{ objectPosition: s.position }}
+                  className={cn(
+                    'size-full object-cover',
+                    active && mounted && 'animate-[hero-zoom_8s_var(--ease-out-soft)_both]',
+                  )}
+                />
+              </picture>
+            )
+          })}
+          {/* Scrim: header phía trên + chuyển tiếp sang khối chữ */}
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-brand-900/70 to-transparent" />
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-900 to-transparent lg:hidden" />
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 hidden w-40 bg-gradient-to-r from-brand-900 to-transparent lg:block" />
         </div>
 
-        <div className="relative -mx-5 md:-mx-8 lg:mx-0 lg:-mr-10 xl:-mr-24">
-          {/* Mobile/tablet: tấm nền chỉ nằm sau ảnh xe để không đè lên chữ */}
-          <div aria-hidden className="showroom-panel absolute inset-x-0 top-[28%] bottom-0 lg:hidden" />
-          <div className="relative px-2 pt-4 pb-10 sm:px-6 lg:pb-6">
-            <CarImage
-              slug={car.slug}
-              alt={car.imageAlt}
-              priority
-              sizes="(min-width: 1280px) 760px, (min-width: 1024px) 55vw, 100vw"
-              className="relative z-[1] aspect-[2/1] drop-shadow-[0_30px_30px_rgb(0_20_45/0.35)]"
-            />
-            <div className="car-shadow" aria-hidden />
+        {/* ---------- Nội dung ---------- */}
+        <div className="relative flex flex-col justify-center px-5 pt-2 pb-8 md:px-8 lg:order-1 lg:pt-[4.5rem] lg:pr-10 lg:pb-28 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))]">
+          <h1 className="eyebrow text-white/70">
+            <span className="h-px w-8 bg-accent" aria-hidden />
+            Showroom Hyundai chính hãng
+          </h1>
+
+          <div className="relative mt-6 grid" aria-live={playing ? 'off' : 'polite'}>
+            {SLIDES.map((s, i) => {
+              const car = getVehicle(s.vehicle)!
+              const active = i === index
+              return (
+                <div
+                  key={s.vehicle}
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${i + 1} / ${count}: ${car.name}`}
+                  aria-hidden={!active}
+                  inert={!active}
+                  className={cn(
+                    'col-start-1 row-start-1 transition-[opacity,transform,visibility] duration-700 ease-out',
+                    active ? 'visible translate-y-0 opacity-100' : 'invisible translate-y-3 opacity-0',
+                  )}
+                >
+                  <p className="text-sm font-medium text-white/60">{car.segment}</p>
+                  <p className="text-display mt-2">{car.model}</p>
+                  <p className="text-lead mt-5 max-w-md text-white/80">{s.headline}</p>
+                  <PriceTag price={getStartingPrice(car)} tone="light" size="lg" className="mt-7" />
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <ButtonLink to={`/san-pham/${car.slug}`} variant="light" size="lg">
+                      Khám phá {car.model} <ArrowRight className="size-5" aria-hidden />
+                    </ButtonLink>
+                    <QuoteLink vehicle={car.slug} variant="outline-light" size="lg">
+                      Nhận báo giá
+                    </QuoteLink>
+                  </div>
+                </div>
+              )
+            })}
           </div>
-          <div className="absolute bottom-4 left-5 z-[2] rounded-2xl bg-white/95 px-4 py-3 shadow-[var(--shadow-lift)] backdrop-blur sm:left-8 lg:bottom-0 lg:left-4">
-            <p className="text-xs font-medium text-muted">{car.name}</p>
-            <p className="text-base font-bold text-brand">
-              Từ {formatPriceShort(price)}
-              {price != null && !pricing.verified && <span className="align-super text-xs text-muted">*</span>}
-            </p>
+
+          {/* ---------- Điều khiển ---------- */}
+          <div className="mt-10 flex items-center gap-4 lg:absolute lg:right-10 lg:bottom-10 lg:left-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:mt-0">
+            <ul className="flex flex-1 gap-5">
+              {SLIDES.map((s, i) => {
+                const car = getVehicle(s.vehicle)!
+                const active = i === index
+                return (
+                  <li key={s.vehicle} className="min-w-0 flex-1">
+                    <button
+                      type="button"
+                      onClick={() => go(i)}
+                      aria-current={active ? 'true' : undefined}
+                      aria-label={`Xem ${car.name}`}
+                      className={cn(
+                        'group block w-full pt-1 text-left text-sm font-semibold transition-colors',
+                        active ? 'text-white' : 'text-white/50 hover:text-white/80',
+                      )}
+                    >
+                      <span className="relative block h-0.5 overflow-hidden rounded-full bg-white/20">
+                        {active && (
+                          <span
+                            key={`${index}-${runKey}`}
+                            className={cn(
+                              'absolute inset-0 origin-left bg-white',
+                              playing
+                                ? 'animate-[progress_7s_linear_both]'
+                                : mounted && 'animate-[progress_7s_linear_both] [animation-play-state:paused]',
+                            )}
+                            style={!mounted ? { transform: 'scaleX(0)' } : undefined}
+                          />
+                        )}
+                      </span>
+                      <span className="mt-3 block truncate">{car.model}</span>
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+            <div className="flex shrink-0 items-center gap-1">
+              <button
+                type="button"
+                onClick={() => go(index - 1)}
+                aria-label="Mẫu xe trước"
+                className="grid size-10 place-items-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <ChevronLeft className="size-5" aria-hidden />
+              </button>
+              <button
+                type="button"
+                onClick={() => go(index + 1)}
+                aria-label="Mẫu xe tiếp theo"
+                className="grid size-10 place-items-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <ChevronRight className="size-5" aria-hidden />
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaused((p) => !p)}
+                aria-label={paused ? 'Tự động chuyển mẫu xe' : 'Tạm dừng tự động chuyển'}
+                className="grid size-10 place-items-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white/50 hover:text-white"
+              >
+                {paused ? <Play className="size-4" aria-hidden /> : <Pause className="size-4" aria-hidden />}
+              </button>
+            </div>
           </div>
         </div>
       </div>

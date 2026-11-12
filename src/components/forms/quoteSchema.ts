@@ -28,6 +28,8 @@ export const quoteSchema = z.object({
     .refine((v) => VN_MOBILE_REGEX.test(v), 'Số điện thoại không hợp lệ (ví dụ: 09xx xxx xxx)'),
   vehicle: z.enum(vehicleSlugs, { error: 'Vui lòng chọn dòng xe quan tâm' }),
   version: z.string().optional(),
+  /** Mã màu ngoại thất (id trong src/data/vehicles/<slug>/colors.ts) – tuỳ chọn */
+  color: z.string().optional(),
   province: z
     .string()
     .min(1, 'Vui lòng chọn tỉnh/thành phố')

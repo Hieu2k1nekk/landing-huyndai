@@ -10,7 +10,7 @@ import { CarImage } from '@/components/ui/CarImage'
 import { PriceNote } from '@/components/ui/PriceNote'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { QuoteLink } from '@/components/forms/QuoteLink'
-import { QuoteSection } from '@/components/home/QuoteSection'
+import { InstallmentSection } from '@/components/installment/InstallmentSection'
 
 const crumbs = [HOME_CRUMB, { name: 'Bảng giá', path: '/bang-gia' }]
 
@@ -123,7 +123,7 @@ export default function PriceListPage() {
         </div>
       </section>
 
-      <QuoteSection />
+      <InstallmentSection />
     </>
   )
 }

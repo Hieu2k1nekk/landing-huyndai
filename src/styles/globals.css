@@ -18,9 +18,15 @@
   --color-line: #e5eaf0; /* Border */
   --color-sand: #e9e3d8; /* điểm nhấn ấm, dùng rất hạn chế */
 
-  --radius-card: 1rem;
-  --shadow-soft: 0 1px 2px rgb(16 24 40 / 0.04), 0 4px 16px -4px rgb(16 24 40 / 0.06);
-  --shadow-lift: 0 2px 4px rgb(16 24 40 / 0.04), 0 18px 40px -12px rgb(0 44 95 / 0.18);
+  /* Bo góc: control (nút, input) < card < khối lớn (banner, form) */
+  --radius-control: 0.625rem;
+  --radius-card: 1.25rem;
+  --radius-panel: 1.75rem;
+
+  /* Đổ bóng: rất nhẹ, chỉ để tách lớp */
+  --shadow-soft: 0 1px 2px rgb(16 24 40 / 0.04), 0 4px 16px -6px rgb(16 24 40 / 0.06);
+  --shadow-lift: 0 1px 2px rgb(16 24 40 / 0.04), 0 24px 48px -20px rgb(0 44 95 / 0.22);
+  --shadow-pop: 0 12px 32px -8px rgb(0 22 49 / 0.25), 0 2px 6px rgb(0 22 49 / 0.08);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -85,20 +91,47 @@
   }
 }
 
+/* Nhịp dọc giữa các section: 72px (mobile) -> 128px (desktop lớn) */
 @utility section-y {
-  padding-block: 4.5rem;
-  @media (width >= 64rem) {
-    padding-block: 6.5rem;
-  }
+  padding-block: clamp(4.5rem, 2.75rem + 5vw, 8rem);
+}
+
+/* ---------- Thang chữ (Be Vietnam Pro) ----------
+ * display  : tên mẫu xe trong hero
+ * h2       : tiêu đề section
+ * h3       : tiêu đề khối lớn (xe nổi bật, banner)
+ * lead     : đoạn mô tả dưới tiêu đề
+ */
+@utility text-display {
+  font-size: clamp(3rem, 1.6rem + 5.4vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+}
+@utility text-h2 {
+  font-size: clamp(1.875rem, 1.35rem + 2.1vw, 3.125rem);
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  font-weight: 700;
+}
+@utility text-h3 {
+  font-size: clamp(1.625rem, 1.25rem + 1.4vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.028em;
+  font-weight: 700;
+}
+@utility text-lead {
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.1875rem);
+  line-height: 1.65;
 }
 
 @utility eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-accent);
 }
@@ -182,6 +215,35 @@ body > div > footer {
   }
 }
 
+/* Hero: ảnh slide đang hiển thị thu nhỏ rất chậm (tắt khi reduced-motion) */
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Radix Select (form báo giá) */
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+.anim-pop[data-state='open'] {
+  animation: pop-in 0.18s var(--ease-out-soft);
+}
+
 /* Radix dialog (menu mobile) transitions */
 @keyframes overlay-in {
   from {
@@ -216,16 +278,106 @@ body > div > footer {
   animation: sheet-out 0.25s ease-in;
 }
 
-/* Swiper – tinh chỉnh tối giản */
-.news-swiper {
-  overflow: visible !important;
-}
-.news-swiper .swiper-slide {
-  height: auto;
-}
-
 /* Bảng giá */
 .price-table th,
 .price-table td {
   @apply px-4 py-3.5 text-left;
+}
+
+/* Đổi màu xe: lớp ảnh mới hiện dần đè lên ảnh cũ (không dùng filter – mỗi màu là ảnh thật) */
+.color-layer {
+  transition: opacity 0.35s var(--ease-out-soft);
+}
+
+/* Thanh trượt bảng tính trả góp (input range gốc, tuỳ biến giao diện) */
+.range {
+  --track: 6px;
+  --thumb: 26px;
+  display: block;
+  width: 100%;
+  height: 2.75rem; /* vùng chạm ≥ 44px trên mobile */
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.range:focus {
+  outline: none;
+}
+.range::-webkit-slider-runnable-track {
+  height: var(--track);
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--color-brand) var(--fill), #dde3eb var(--fill));
+}
+.range::-moz-range-track {
+  height: var(--track);
+  border-radius: 999px;
+  background: #dde3eb;
+}
+.range::-moz-range-progress {
+  height: var(--track);
+  border-radius: 999px;
+  background: var(--color-brand);
+}
+.range::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--thumb);
+  height: var(--thumb);
+  margin-top: calc((var(--track) - var(--thumb)) / 2);
+  border-radius: 50%;
+  border: 2px solid var(--color-brand);
+  background: #fff;
+  box-shadow: 0 6px 14px -4px rgb(0 20 50 / 0.45);
+  transition: transform 0.15s var(--ease-out-soft), box-shadow 0.15s;
+}
+.range::-moz-range-thumb {
+  width: var(--thumb);
+  height: var(--thumb);
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid var(--color-brand);
+  background: #fff;
+  box-shadow: 0 6px 14px -4px rgb(0 20 50 / 0.45);
+  transition: transform 0.15s var(--ease-out-soft), box-shadow 0.15s;
+}
+.range:hover::-webkit-slider-thumb,
+.range:active::-webkit-slider-thumb {
+  transform: scale(1.1);
+}
+.range:hover::-moz-range-thumb,
+.range:active::-moz-range-thumb {
+  transform: scale(1.1);
+}
+.range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 6px rgb(0 114 206 / 0.22), 0 6px 14px -4px rgb(0 20 50 / 0.45);
+}
+.range:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 6px rgb(0 114 206 / 0.22), 0 6px 14px -4px rgb(0 20 50 / 0.45);
+}
+
+/* Hộp thoại form tư vấn: mobile trượt từ dưới lên, desktop hiện giữa màn hình */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@keyframes dialog-out {
+  to {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+.anim-dialog[data-state='open'] {
+  animation: dialog-in 0.32s var(--ease-out-soft);
+}
+.anim-dialog[data-state='closed'] {
+  animation: dialog-out 0.2s ease-in;
+}
+
+/* Icon điện thoại rung nhẹ ở đầu mỗi chu kỳ */
+@keyframes ring {
+  0%, 60%, 100% { transform: rotate(0); }
+  8%, 24%, 40% { transform: rotate(-14deg); }
+  16%, 32%, 48% { transform: rotate(14deg); }
 }

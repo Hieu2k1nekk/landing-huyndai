@@ -1,4 +1,5 @@
-import { useParams } from 'react-router'
+import { useEffect } from 'react'
+import { useLocation, useParams } from 'react-router'
 import { Check, ExternalLink } from 'lucide-react'
 import { Seo } from '@/seo/head'
 import { breadcrumbSchema, globalSchemas, vehicleProductSchema } from '@/seo/schema'
@@ -8,17 +9,37 @@ import { formatPriceFull, formatPriceShort } from '@/utils/format'
 import { getCarImage } from '@/utils/images'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { HOME_CRUMB } from '@/components/layout/PageHeader'
-import { CarImage } from '@/components/ui/CarImage'
+import { NewsImage } from '@/components/ui/NewsImage'
+import { VehicleImagePreview } from '@/components/vehicles/color/VehicleImagePreview'
+import { VehicleColorField } from '@/components/vehicles/color/VehicleColorField'
+import { setVehicleColor, useVehicleColor } from '@/hooks/useVehicleColor'
 import { PriceNote } from '@/components/ui/PriceNote'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { QuoteLink } from '@/components/forms/QuoteLink'
-import { QuoteSection } from '@/components/home/QuoteSection'
+import { InstallmentSection } from '@/components/installment/InstallmentSection'
 import { VehicleCard } from '@/components/vehicles/VehicleCard'
 import NotFoundPage from './NotFoundPage'
 
+const HERO_SIZES = '(min-width: 1024px) 720px, 100vw'
+
+/** Ảnh thực tế (đúng mẫu, nguồn Hyundai Thành Công) – chỉ hiển thị với mẫu có sẵn ảnh */
+const GALLERY: Record<string, string[]> = {
+  tucson: ['tucson-hev-1', 'tucson-hev-ext2', 'tucson-hev-run1'],
+  palisade: ['palisade-0056', 'palisade-8485', 'palisade-8524'],
+}
+
 export default function VehicleDetailPage() {
   const { slug = '' } = useParams()
+  const { search } = useLocation()
   const v = getVehicle(slug)
+  const { color } = useVehicleColor(slug)
+
+  // Giữ màu khách chọn từ card: ?mau=<id> (client-only, hợp lệ mới áp dụng)
+  useEffect(() => {
+    const mau = new URLSearchParams(search).get('mau')
+    if (mau) setVehicleColor(slug, mau)
+  }, [slug, search])
+
   if (!v) return <NotFoundPage />
 
   const price = getStartingPrice(v)
@@ -28,6 +49,7 @@ export default function VehicleDetailPage() {
     .sort((a, b) => Number(b.bodyType === v.bodyType) - Number(a.bodyType === v.bodyType))
     .slice(0, 3)
   const img = getCarImage(v.slug)
+  const gallery = GALLERY[v.slug] ?? []
 
   return (
     <>
@@ -66,8 +88,11 @@ export default function VehicleDetailPage() {
                   {price != null && !pricing.verified && <span className="align-super text-base text-muted">*</span>}
                 </p>
               </div>
+              <div className="mt-6">
+                <VehicleColorField vehicle={v} sizes={HERO_SIZES} size="md" maxVisible={10} />
+              </div>
               <div className="mt-6 flex flex-wrap gap-3">
-                <QuoteLink vehicle={v.slug} size="lg">
+                <QuoteLink vehicle={v.slug} color={color?.id} size="lg">
                   Nhận báo giá lăn bánh
                 </QuoteLink>
               </div>
@@ -76,12 +101,14 @@ export default function VehicleDetailPage() {
               {/* Mobile/tablet: nền tối chỉ phía sau ảnh xe (cột chữ nằm phía trên) */}
               <div aria-hidden className="showroom-panel absolute inset-x-0 top-[40%] bottom-0 lg:hidden" />
               <div className="relative px-7 pb-8 sm:px-11 md:px-14 lg:px-6">
-                <CarImage
+                <VehicleImagePreview
                   slug={v.slug}
-                  alt={v.imageAlt}
+                  name={v.name}
+                  color={color}
                   priority
-                  sizes="(min-width: 1024px) 720px, 100vw"
-                  className="relative z-[1] aspect-[2/1] drop-shadow-[0_30px_30px_rgb(0_20_45/0.35)]"
+                  sizes={HERO_SIZES}
+                  className="z-[1]"
+                  imgClassName="drop-shadow-[0_30px_30px_rgb(0_20_45/0.35)]"
                 />
                 <div className="car-shadow" aria-hidden />
               </div>
@@ -144,6 +171,14 @@ export default function VehicleDetailPage() {
       <section aria-labelledby="versions-title" className="pb-16 lg:pb-24">
         <div className="container-page">
           <SectionHeading id="versions-title" eyebrow="Phiên bản" title="Phiên bản & giá tham khảo" />
+          <p className="mt-3 text-[0.9375rem] text-muted">
+            {color ? (
+              <>
+                Màu đang chọn: <strong className="text-ink">{color.name}</strong>. Nút “Báo giá” sẽ gửi kèm phiên bản và màu này.{' '}
+              </>
+            ) : null}
+            Màu sắc có thể khác nhau tùy phiên bản và thời điểm – vui lòng xác nhận với tư vấn viên.
+          </p>
           <div className="relative mt-8 overflow-x-auto rounded-[var(--radius-card)] border border-line">
             <table className="price-table w-full sm:min-w-[480px] text-[0.9375rem]">
               <caption className="sr-only">Bảng giá các phiên bản {v.name}</caption>
@@ -167,7 +202,7 @@ export default function VehicleDetailPage() {
                       {ver.price != null && !pricing.verified && '*'}
                     </td>
                     <td className="hidden text-right! sm:table-cell">
-                      <QuoteLink vehicle={v.slug} size="sm" variant="ghost">
+                      <QuoteLink vehicle={v.slug} color={color?.id} version={ver.name} size="sm" variant="ghost">
                         Báo giá
                       </QuoteLink>
                     </td>
@@ -180,7 +215,25 @@ export default function VehicleDetailPage() {
         </div>
       </section>
 
-      <QuoteSection defaultVehicle={v.slug} title={`Nhận báo giá ${v.name}`} />
+      {gallery.length > 0 && (
+        <section aria-labelledby="gallery-title" className="pb-16 lg:pb-24">
+          <div className="container-page">
+            <SectionHeading id="gallery-title" eyebrow="Hình ảnh" title={`${v.name} ngoài thực tế`} />
+            <ul className="mt-8 grid gap-4 sm:grid-cols-3">
+              {gallery.map((key, i) => (
+                <li key={key} className="aspect-[3/2] overflow-hidden rounded-[var(--radius-card)] bg-surface">
+                  <NewsImage image={key} alt={`${v.name} – hình ảnh thực tế ${i + 1}`} sizes="(min-width: 640px) 33vw, 100vw" />
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-xs text-muted">
+              Ảnh: Hyundai Thành Công. Màu xe trong ảnh có thể khác màu đang chọn.
+            </p>
+          </div>
+        </section>
+      )}
+
+      <InstallmentSection defaultVehicle={v.slug} />
 
       <section aria-labelledby="related-title" className="section-y">
         <div className="container-page">

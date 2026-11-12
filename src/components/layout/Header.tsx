@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, NavLink } from 'react-router'
+import { Link, NavLink, useLocation } from 'react-router'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Menu, Phone, X, ArrowRight } from 'lucide-react'
 import { mainNav } from '@/data/navigation'
@@ -7,22 +7,29 @@ import { dealer, telHref } from '@/config/site'
 import { useScrolled } from '@/hooks/useScrolled'
 import { Logo } from '@/components/ui/Logo'
 import { QuoteLink } from '@/components/forms/QuoteLink'
+import { buttonClass } from '@/components/ui/Button'
 import { cn } from '@/utils/cn'
 
 export function Header() {
   const scrolled = useScrolled(8)
   const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
+  /** Trang chủ: header trong suốt nằm trên ảnh hero cho tới khi cuộn */
+  const overlay = pathname === '/' && !scrolled && !open
 
   return (
     <header
       className={cn(
-        'sticky top-0 z-40 border-b bg-white/90 backdrop-blur-md transition-[box-shadow,border-color] duration-300 supports-[backdrop-filter]:bg-white/80',
-        scrolled ? 'border-line shadow-[0_6px_24px_-12px_rgb(0_44_95/0.18)]' : 'border-transparent',
+        'sticky top-0 z-40 border-b transition-[background-color,box-shadow,border-color,color] duration-300',
+        overlay
+          ? 'border-transparent bg-transparent'
+          : 'bg-white/90 backdrop-blur-md supports-[backdrop-filter]:bg-white/80',
+        !overlay && (scrolled ? 'border-line shadow-[0_6px_24px_-12px_rgb(0_44_95/0.18)]' : 'border-transparent'),
       )}
     >
       <div className="container-page flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
         <Link to="/" aria-label="Hyundai Showroom – Trang chủ" className="shrink-0">
-          <Logo />
+          <Logo tone={overlay ? 'light' : 'dark'} />
         </Link>
 
         <nav aria-label="Điều hướng chính" className="hidden lg:block">
@@ -34,9 +41,13 @@ export function Header() {
                   end={item.to === '/'}
                   className={({ isActive }) =>
                     cn(
-                      'relative inline-flex h-10 items-center px-3 text-[0.9375rem] font-medium transition-colors',
+                      'relative inline-flex h-10 items-center px-3 text-[0.9375rem] font-medium whitespace-nowrap transition-colors lg:px-2.5 xl:px-3',
                       'after:absolute after:inset-x-3 after:-bottom-[0.9rem] after:h-0.5 after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-300',
-                      isActive ? 'text-brand after:scale-x-100' : 'text-ink/80 hover:text-brand',
+                      overlay
+                        ? cn('after:bg-white', isActive ? 'text-white after:scale-x-100' : 'text-white/75 hover:text-white')
+                        : isActive
+                          ? 'text-brand after:scale-x-100'
+                          : 'text-ink/80 hover:text-brand',
                     )
                   }
                 >
@@ -51,24 +62,31 @@ export function Header() {
           {dealer.hotline ? (
             <a
               href={telHref(dealer.hotline)}
-              className="hidden items-center gap-2.5 rounded-full px-2 py-1 text-brand transition-colors hover:text-accent md:inline-flex"
+              aria-label={`Gọi hotline ${dealer.hotline}`}
+              className={buttonClass(overlay ? 'light' : 'primary', 'sm', 'hidden pr-5 pl-1.5 tabular-nums sm:inline-flex')}
             >
-              <span className="grid size-9 place-items-center rounded-full bg-surface">
-                <Phone className="size-4" aria-hidden />
+              <span
+                className={cn(
+                  'grid size-7 place-items-center rounded-full',
+                  overlay ? 'bg-brand text-white' : 'bg-white/15 text-white',
+                )}
+              >
+                <Phone className="size-3.5 animate-[ring_2.4s_ease-in-out_infinite]" aria-hidden />
               </span>
-              <span className="flex flex-col leading-tight">
-                <span className="text-[0.6875rem] font-medium tracking-wide text-muted uppercase">Hotline</span>
-                <span className="text-sm font-bold">{dealer.hotline}</span>
-              </span>
+              {dealer.hotline}
             </a>
-          ) : null}
-          <QuoteLink size="sm" className="hidden sm:inline-flex">
-            Nhận tư vấn
-          </QuoteLink>
+          ) : (
+            <QuoteLink size="sm" variant={overlay ? 'light' : 'primary'} className="hidden sm:inline-flex">
+              Nhận tư vấn
+            </QuoteLink>
+          )}
 
           <Dialog.Root open={open} onOpenChange={setOpen}>
             <Dialog.Trigger
-              className="grid size-11 place-items-center rounded-full text-ink transition-colors hover:bg-surface lg:hidden"
+              className={cn(
+                'grid size-11 place-items-center rounded-full transition-colors lg:hidden',
+                overlay ? 'text-white hover:bg-white/10' : 'text-ink hover:bg-surface',
+              )}
               aria-label="Mở menu"
             >
               <Menu className="size-6" aria-hidden />
@@ -81,7 +99,7 @@ export function Header() {
               >
                 <div className="flex h-16 items-center justify-between border-b border-line px-5">
                   <Dialog.Title className="sr-only">Menu điều hướng</Dialog.Title>
-                  <Logo />
+                  <Logo className="h-[17px] sm:h-[17px] xl:h-[17px]" />
                   <Dialog.Close className="grid size-11 place-items-center rounded-full hover:bg-surface" aria-label="Đóng menu">
                     <X className="size-6" aria-hidden />
                   </Dialog.Close>

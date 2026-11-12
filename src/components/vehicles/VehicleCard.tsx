@@ -1,66 +1,91 @@
 import { Link } from 'react-router'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import type { Vehicle } from '@/types'
-import { getStartingPrice } from '@/data/vehicles'
-import { pricing } from '@/config/site'
-import { formatPriceShort } from '@/utils/format'
-import { CarImage } from '@/components/ui/CarImage'
+import { BODY_TYPE_LABEL, getStartingPrice } from '@/data/vehicles'
+import { PriceTag } from '@/components/ui/PriceTag'
 import { QuoteLink } from '@/components/forms/QuoteLink'
 import { buttonClass } from '@/components/ui/Button'
+import { useVehicleColor } from '@/hooks/useVehicleColor'
+import { VehicleImagePreview } from './color/VehicleImagePreview'
+import { VehicleColorField } from './color/VehicleColorField'
 
+const SIZES = '(min-width: 1280px) 380px, (min-width: 1024px) 30vw, (min-width: 640px) 46vw, 92vw'
+
+/** 3 thông số hiển thị trên card (lấy từ highlights; thiếu thì bỏ qua – không tự tạo) */
+function cardSpecs(v: Vehicle) {
+  const get = (label: string) => v.highlights.find((h) => h.label === label)?.value
+  return [
+    { label: 'Động cơ', value: get('Động cơ') },
+    { label: 'Hộp số', value: get('Hộp số') },
+    { label: 'Số chỗ', value: get('Số chỗ') ?? v.seats },
+  ].filter((s): s is { label: string; value: string } => Boolean(s.value))
+}
+
+/**
+ * Thẻ xe dạng khối: nền trắng, viền + đổ bóng nhẹ để tách khỏi nền section.
+ * Ảnh (đổi theo màu) – phân khúc – tên – chấm màu – thông số – giá – hành động.
+ * Màu đang chọn lưu theo slug (useVehicleColor) -> giữ khi sang trang chi tiết / form báo giá.
+ */
 export function VehicleCard({ vehicle, headingLevel = 'h3' }: { vehicle: Vehicle; headingLevel?: 'h2' | 'h3' }) {
-  const price = getStartingPrice(vehicle)
   const H = headingLevel
-  const href = `/san-pham/${vehicle.slug}`
+  const { color, chosen } = useVehicleColor(vehicle.slug)
+  const href = `/san-pham/${vehicle.slug}${chosen ? `?mau=${chosen.id}` : ''}`
+  const specs = cardSpecs(vehicle)
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white transition-[transform,box-shadow,border-color] duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:border-transparent hover:shadow-[var(--shadow-lift)]">
-      <div className="relative overflow-hidden bg-gradient-to-b from-surface to-[#eaeef4] px-6 pt-10 pb-6">
-        <span className="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-brand shadow-sm">
-          {vehicle.segment}
+    <article className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white shadow-[0_1px_2px_rgb(0_20_45/0.04),0_10px_30px_-18px_rgb(0_20_45/0.22)] transition-[box-shadow,border-color,translate] duration-500 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:border-brand/15 hover:shadow-[0_2px_4px_rgb(0_20_45/0.04),0_22px_44px_-20px_rgb(0_20_45/0.3)]">
+      <Link
+        to={href}
+        tabIndex={-1}
+        aria-hidden
+        className="relative block bg-[linear-gradient(180deg,#f8fafc_0%,#e9eef4_100%)]"
+      >
+        <span className="absolute top-4 left-4 z-[2] rounded-full bg-white px-3 py-1 text-xs font-semibold text-ink shadow-[0_1px_3px_rgb(0_20_45/0.12)]">
+          {BODY_TYPE_LABEL[vehicle.bodyType]}
         </span>
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -bottom-3 left-1/2 -translate-x-1/2 text-[4.5rem] leading-none font-bold tracking-tight whitespace-nowrap text-white/70 select-none"
-        >
-          {vehicle.model.toUpperCase()}
-        </span>
-        <Link to={href} tabIndex={-1} aria-hidden className="relative block">
-          <CarImage
-            slug={vehicle.slug}
-            alt={vehicle.imageAlt}
-            sizes="(min-width: 1280px) 380px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
-            className="relative z-[1] aspect-[2/1] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.03]"
-          />
-        </Link>
-      </div>
+        <div className="flex aspect-[16/10] items-end px-7 pt-10 pb-5">
+          <div className="relative w-full">
+            <VehicleImagePreview
+              slug={vehicle.slug}
+              name={vehicle.name}
+              color={color}
+              sizes={SIZES}
+              className="z-[1] transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]"
+            />
+            <div className="car-shadow" aria-hidden />
+          </div>
+        </div>
+      </Link>
 
-      <div className="flex flex-1 flex-col p-6">
-        <H className="text-xl font-bold">
+      <div className="flex flex-1 flex-col border-t border-line p-5 sm:p-6">
+        <p className="text-[0.8125rem] font-medium text-muted">{vehicle.segment}</p>
+        <H className="mt-1 text-[1.375rem] leading-tight font-bold tracking-tight">
           <Link to={href} className="transition-colors hover:text-brand">
             {vehicle.name}
           </Link>
         </H>
-        <p className="mt-2 line-clamp-2 text-[0.9375rem] text-muted">{vehicle.description}</p>
 
-        <div className="mt-5 flex items-end justify-between gap-3 border-t border-line pt-4">
-          <div>
-            <p className="text-xs font-medium text-muted">Giá {pricing.verified ? 'niêm yết' : 'tham khảo'} từ</p>
-            <p className="mt-0.5 text-lg font-bold text-brand">
-              {formatPriceShort(price)}
-              {price != null && !pricing.verified && <span className="align-super text-xs text-muted">*</span>}
-            </p>
-          </div>
-          <p className="text-sm text-muted">{vehicle.seats}</p>
-        </div>
+        <VehicleColorField vehicle={vehicle} sizes={SIZES} className="mt-4" />
 
-        <div className="mt-5 grid grid-cols-2 gap-2.5">
-          <Link to={href} className={buttonClass('outline', 'sm', 'w-full')} aria-label={`Khám phá ${vehicle.name}`}>
-            Khám phá <ArrowUpRight className="size-4" aria-hidden />
-          </Link>
-          <QuoteLink vehicle={vehicle.slug} size="sm" className="w-full">
+        <dl className="mt-4 grid grid-cols-3 gap-3 border-y border-line py-4">
+          {specs.map((s) => (
+            <div key={s.label} className="min-w-0">
+              <dt className="text-xs text-muted">{s.label}</dt>
+              <dd className="mt-1 min-h-[2.75em] text-sm leading-snug font-semibold text-ink">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <PriceTag price={getStartingPrice(vehicle)} size="lg" className="mt-5" />
+
+        <div className="mt-auto grid grid-cols-2 gap-3 pt-5">
+          <QuoteLink vehicle={vehicle.slug} color={color?.id} size="md" className="px-3">
             Nhận báo giá
           </QuoteLink>
+          <Link to={href} aria-label={`Xem chi tiết ${vehicle.name}`} className={buttonClass('outline', 'md', 'px-3')}>
+            Chi tiết
+            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
+          </Link>
         </div>
       </div>
     </article>

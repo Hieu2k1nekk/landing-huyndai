@@ -288,5 +288,758 @@
         }
       ]
     }
+  },
+  "carColors": {
+    "accent": {
+      "bac": {
+        "width": 632,
+        "height": 263,
+        "variants": [
+          {
+            "src": "/images/cars/accent/colors/bac-480.webp",
+            "width": 480,
+            "height": 200
+          },
+          {
+            "src": "/images/cars/accent/colors/bac-632.webp",
+            "width": 632,
+            "height": 263
+          }
+        ]
+      },
+      "den": {
+        "width": 632,
+        "height": 263,
+        "variants": [
+          {
+            "src": "/images/cars/accent/colors/den-480.webp",
+            "width": 480,
+            "height": 200
+          },
+          {
+            "src": "/images/cars/accent/colors/den-632.webp",
+            "width": 632,
+            "height": 263
+          }
+        ]
+      },
+      "do": {
+        "width": 632,
+        "height": 263,
+        "variants": [
+          {
+            "src": "/images/cars/accent/colors/do-480.webp",
+            "width": 480,
+            "height": 200
+          },
+          {
+            "src": "/images/cars/accent/colors/do-632.webp",
+            "width": 632,
+            "height": 263
+          }
+        ]
+      },
+      "ghi-vang": {
+        "width": 632,
+        "height": 263,
+        "variants": [
+          {
+            "src": "/images/cars/accent/colors/ghi-vang-480.webp",
+            "width": 480,
+            "height": 200
+          },
+          {
+            "src": "/images/cars/accent/colors/ghi-vang-632.webp",
+            "width": 632,
+            "height": 263
+          }
+        ]
+      },
+      "trang": {
+        "width": 632,
+        "height": 263,
+        "variants": [
+          {
+            "src": "/images/cars/accent/colors/trang-480.webp",
+            "width": 480,
+            "height": 200
+          },
+          {
+            "src": "/images/cars/accent/colors/trang-632.webp",
+            "width": 632,
+            "height": 263
+          }
+        ]
+      },
+      "vang-cat": {
+        "width": 632,
+        "height": 263,
+        "variants": [
+          {
+            "src": "/images/cars/accent/colors/vang-cat-480.webp",
+            "width": 480,
+            "height": 200
+          },
+          {
+            "src": "/images/cars/accent/colors/vang-cat-632.webp",
+            "width": 632,
+            "height": 263
+          }
+        ]
+      },
+      "xanh-duong": {
+        "width": 632,
+        "height": 263,
+        "variants": [
+          {
+            "src": "/images/cars/accent/colors/xanh-duong-480.webp",
+            "width": 480,
+            "height": 200
+          },
+          {
+            "src": "/images/cars/accent/colors/xanh-duong-632.webp",
+            "width": 632,
+            "height": 263
+          }
+        ]
+      }
+    },
+    "creta": {
+      "bac": {
+        "width": 763,
+        "height": 329,
+        "variants": [
+          {
+            "src": "/images/cars/creta/colors/bac-480.webp",
+            "width": 480,
+            "height": 207
+          },
+          {
+            "src": "/images/cars/creta/colors/bac-763.webp",
+            "width": 763,
+            "height": 329
+          }
+        ]
+      },
+      "den": {
+        "width": 763,
+        "height": 329,
+        "variants": [
+          {
+            "src": "/images/cars/creta/colors/den-480.webp",
+            "width": 480,
+            "height": 207
+          },
+          {
+            "src": "/images/cars/creta/colors/den-763.webp",
+            "width": 763,
+            "height": 329
+          }
+        ]
+      },
+      "do": {
+        "width": 857,
+        "height": 348,
+        "variants": [
+          {
+            "src": "/images/cars/creta/colors/do-480.webp",
+            "width": 480,
+            "height": 195
+          },
+          {
+            "src": "/images/cars/creta/colors/do-857.webp",
+            "width": 857,
+            "height": 348
+          }
+        ]
+      },
+      "trang": {
+        "width": 763,
+        "height": 329,
+        "variants": [
+          {
+            "src": "/images/cars/creta/colors/trang-480.webp",
+            "width": 480,
+            "height": 207
+          },
+          {
+            "src": "/images/cars/creta/colors/trang-763.webp",
+            "width": 763,
+            "height": 329
+          }
+        ]
+      },
+      "xam-kim-loai": {
+        "width": 763,
+        "height": 329,
+        "variants": [
+          {
+            "src": "/images/cars/creta/colors/xam-kim-loai-480.webp",
+            "width": 480,
+            "height": 207
+          },
+          {
+            "src": "/images/cars/creta/colors/xam-kim-loai-763.webp",
+            "width": 763,
+            "height": 329
+          }
+        ]
+      },
+      "xanh-duong": {
+        "width": 763,
+        "height": 329,
+        "variants": [
+          {
+            "src": "/images/cars/creta/colors/xanh-duong-480.webp",
+            "width": 480,
+            "height": 207
+          },
+          {
+            "src": "/images/cars/creta/colors/xanh-duong-763.webp",
+            "width": 763,
+            "height": 329
+          }
+        ]
+      }
+    },
+    "elantra": {
+      "den": {
+        "width": 650,
+        "height": 301,
+        "variants": [
+          {
+            "src": "/images/cars/elantra/colors/den-480.webp",
+            "width": 480,
+            "height": 222
+          },
+          {
+            "src": "/images/cars/elantra/colors/den-650.webp",
+            "width": 650,
+            "height": 301
+          }
+        ]
+      },
+      "do": {
+        "width": 650,
+        "height": 301,
+        "variants": [
+          {
+            "src": "/images/cars/elantra/colors/do-480.webp",
+            "width": 480,
+            "height": 222
+          },
+          {
+            "src": "/images/cars/elantra/colors/do-650.webp",
+            "width": 650,
+            "height": 301
+          }
+        ]
+      },
+      "trang": {
+        "width": 650,
+        "height": 301,
+        "variants": [
+          {
+            "src": "/images/cars/elantra/colors/trang-480.webp",
+            "width": 480,
+            "height": 222
+          },
+          {
+            "src": "/images/cars/elantra/colors/trang-650.webp",
+            "width": 650,
+            "height": 301
+          }
+        ]
+      },
+      "xam-kim-loai": {
+        "width": 650,
+        "height": 301,
+        "variants": [
+          {
+            "src": "/images/cars/elantra/colors/xam-kim-loai-480.webp",
+            "width": 480,
+            "height": 222
+          },
+          {
+            "src": "/images/cars/elantra/colors/xam-kim-loai-650.webp",
+            "width": 650,
+            "height": 301
+          }
+        ]
+      },
+      "xanh-duong": {
+        "width": 650,
+        "height": 301,
+        "variants": [
+          {
+            "src": "/images/cars/elantra/colors/xanh-duong-480.webp",
+            "width": 480,
+            "height": 222
+          },
+          {
+            "src": "/images/cars/elantra/colors/xanh-duong-650.webp",
+            "width": 650,
+            "height": 301
+          }
+        ]
+      }
+    },
+    "santa-fe": {
+      "bac": {
+        "width": 853,
+        "height": 426,
+        "variants": [
+          {
+            "src": "/images/cars/santa-fe/colors/bac-480.webp",
+            "width": 480,
+            "height": 240
+          },
+          {
+            "src": "/images/cars/santa-fe/colors/bac-853.webp",
+            "width": 853,
+            "height": 426
+          }
+        ]
+      },
+      "den": {
+        "width": 858,
+        "height": 426,
+        "variants": [
+          {
+            "src": "/images/cars/santa-fe/colors/den-480.webp",
+            "width": 480,
+            "height": 238
+          },
+          {
+            "src": "/images/cars/santa-fe/colors/den-858.webp",
+            "width": 858,
+            "height": 426
+          }
+        ]
+      },
+      "do-do": {
+        "width": 872,
+        "height": 428,
+        "variants": [
+          {
+            "src": "/images/cars/santa-fe/colors/do-do-480.webp",
+            "width": 480,
+            "height": 236
+          },
+          {
+            "src": "/images/cars/santa-fe/colors/do-do-872.webp",
+            "width": 872,
+            "height": 428
+          }
+        ]
+      },
+      "trang": {
+        "width": 854,
+        "height": 426,
+        "variants": [
+          {
+            "src": "/images/cars/santa-fe/colors/trang-480.webp",
+            "width": 480,
+            "height": 239
+          },
+          {
+            "src": "/images/cars/santa-fe/colors/trang-854.webp",
+            "width": 854,
+            "height": 426
+          }
+        ]
+      },
+      "vang-cat": {
+        "width": 858,
+        "height": 426,
+        "variants": [
+          {
+            "src": "/images/cars/santa-fe/colors/vang-cat-480.webp",
+            "width": 480,
+            "height": 238
+          },
+          {
+            "src": "/images/cars/santa-fe/colors/vang-cat-858.webp",
+            "width": 858,
+            "height": 426
+          }
+        ]
+      },
+      "xanh-duong": {
+        "width": 858,
+        "height": 426,
+        "variants": [
+          {
+            "src": "/images/cars/santa-fe/colors/xanh-duong-480.webp",
+            "width": 480,
+            "height": 238
+          },
+          {
+            "src": "/images/cars/santa-fe/colors/xanh-duong-858.webp",
+            "width": 858,
+            "height": 426
+          }
+        ]
+      },
+      "xanh-luc-bao": {
+        "width": 846,
+        "height": 425,
+        "variants": [
+          {
+            "src": "/images/cars/santa-fe/colors/xanh-luc-bao-480.webp",
+            "width": 480,
+            "height": 241
+          },
+          {
+            "src": "/images/cars/santa-fe/colors/xanh-luc-bao-846.webp",
+            "width": 846,
+            "height": 425
+          }
+        ]
+      }
+    },
+    "stargazer": {
+      "bac": {
+        "width": 474,
+        "height": 270,
+        "variants": [
+          {
+            "src": "/images/cars/stargazer/colors/bac-474.webp",
+            "width": 474,
+            "height": 270
+          }
+        ]
+      },
+      "den": {
+        "width": 474,
+        "height": 270,
+        "variants": [
+          {
+            "src": "/images/cars/stargazer/colors/den-474.webp",
+            "width": 474,
+            "height": 270
+          }
+        ]
+      },
+      "do": {
+        "width": 484,
+        "height": 271,
+        "variants": [
+          {
+            "src": "/images/cars/stargazer/colors/do-480.webp",
+            "width": 480,
+            "height": 269
+          },
+          {
+            "src": "/images/cars/stargazer/colors/do-484.webp",
+            "width": 484,
+            "height": 271
+          }
+        ]
+      },
+      "trang": {
+        "width": 474,
+        "height": 270,
+        "variants": [
+          {
+            "src": "/images/cars/stargazer/colors/trang-474.webp",
+            "width": 474,
+            "height": 270
+          }
+        ]
+      },
+      "xam": {
+        "width": 474,
+        "height": 270,
+        "variants": [
+          {
+            "src": "/images/cars/stargazer/colors/xam-474.webp",
+            "width": 474,
+            "height": 270
+          }
+        ]
+      }
+    },
+    "tucson": {
+      "bac": {
+        "width": 699,
+        "height": 318,
+        "variants": [
+          {
+            "src": "/images/cars/tucson/colors/bac-480.webp",
+            "width": 480,
+            "height": 218
+          },
+          {
+            "src": "/images/cars/tucson/colors/bac-699.webp",
+            "width": 699,
+            "height": 318
+          }
+        ]
+      },
+      "den": {
+        "width": 696,
+        "height": 317,
+        "variants": [
+          {
+            "src": "/images/cars/tucson/colors/den-480.webp",
+            "width": 480,
+            "height": 219
+          },
+          {
+            "src": "/images/cars/tucson/colors/den-696.webp",
+            "width": 696,
+            "height": 317
+          }
+        ]
+      },
+      "do-do": {
+        "width": 696,
+        "height": 317,
+        "variants": [
+          {
+            "src": "/images/cars/tucson/colors/do-do-480.webp",
+            "width": 480,
+            "height": 219
+          },
+          {
+            "src": "/images/cars/tucson/colors/do-do-696.webp",
+            "width": 696,
+            "height": 317
+          }
+        ]
+      },
+      "trang": {
+        "width": 699,
+        "height": 318,
+        "variants": [
+          {
+            "src": "/images/cars/tucson/colors/trang-480.webp",
+            "width": 480,
+            "height": 218
+          },
+          {
+            "src": "/images/cars/tucson/colors/trang-699.webp",
+            "width": 699,
+            "height": 318
+          }
+        ]
+      },
+      "vang-cat": {
+        "width": 699,
+        "height": 318,
+        "variants": [
+          {
+            "src": "/images/cars/tucson/colors/vang-cat-480.webp",
+            "width": 480,
+            "height": 218
+          },
+          {
+            "src": "/images/cars/tucson/colors/vang-cat-699.webp",
+            "width": 699,
+            "height": 318
+          }
+        ]
+      },
+      "xanh-duong": {
+        "width": 695,
+        "height": 317,
+        "variants": [
+          {
+            "src": "/images/cars/tucson/colors/xanh-duong-480.webp",
+            "width": 480,
+            "height": 219
+          },
+          {
+            "src": "/images/cars/tucson/colors/xanh-duong-695.webp",
+            "width": 695,
+            "height": 317
+          }
+        ]
+      },
+      "xanh-luc-bao": {
+        "width": 701,
+        "height": 318,
+        "variants": [
+          {
+            "src": "/images/cars/tucson/colors/xanh-luc-bao-480.webp",
+            "width": 480,
+            "height": 218
+          },
+          {
+            "src": "/images/cars/tucson/colors/xanh-luc-bao-701.webp",
+            "width": 701,
+            "height": 318
+          }
+        ]
+      }
+    },
+    "venue": {
+      "bac": {
+        "width": 714,
+        "height": 371,
+        "variants": [
+          {
+            "src": "/images/cars/venue/colors/bac-480.webp",
+            "width": 480,
+            "height": 249
+          },
+          {
+            "src": "/images/cars/venue/colors/bac-714.webp",
+            "width": 714,
+            "height": 371
+          }
+        ]
+      },
+      "den": {
+        "width": 1274,
+        "height": 663,
+        "variants": [
+          {
+            "src": "/images/cars/venue/colors/den-480.webp",
+            "width": 480,
+            "height": 250
+          },
+          {
+            "src": "/images/cars/venue/colors/den-960.webp",
+            "width": 960,
+            "height": 500
+          },
+          {
+            "src": "/images/cars/venue/colors/den-1274.webp",
+            "width": 1274,
+            "height": 663
+          }
+        ]
+      },
+      "do": {
+        "width": 714,
+        "height": 371,
+        "variants": [
+          {
+            "src": "/images/cars/venue/colors/do-480.webp",
+            "width": 480,
+            "height": 249
+          },
+          {
+            "src": "/images/cars/venue/colors/do-714.webp",
+            "width": 714,
+            "height": 371
+          }
+        ]
+      },
+      "trang": {
+        "width": 714,
+        "height": 371,
+        "variants": [
+          {
+            "src": "/images/cars/venue/colors/trang-480.webp",
+            "width": 480,
+            "height": 249
+          },
+          {
+            "src": "/images/cars/venue/colors/trang-714.webp",
+            "width": 714,
+            "height": 371
+          }
+        ]
+      },
+      "xam-kim-loai": {
+        "width": 714,
+        "height": 371,
+        "variants": [
+          {
+            "src": "/images/cars/venue/colors/xam-kim-loai-480.webp",
+            "width": 480,
+            "height": 249
+          },
+          {
+            "src": "/images/cars/venue/colors/xam-kim-loai-714.webp",
+            "width": 714,
+            "height": 371
+          }
+        ]
+      },
+      "xanh-duong": {
+        "width": 714,
+        "height": 371,
+        "variants": [
+          {
+            "src": "/images/cars/venue/colors/xanh-duong-480.webp",
+            "width": 480,
+            "height": 249
+          },
+          {
+            "src": "/images/cars/venue/colors/xanh-duong-714.webp",
+            "width": 714,
+            "height": 371
+          }
+        ]
+      }
+    }
+  },
+  "hero": {
+    "tucson-hev-run1": {
+      "landscape": [
+        {
+          "src": "/images/hero/tucson-hev-run1-960.webp",
+          "width": 960,
+          "height": 640
+        },
+        {
+          "src": "/images/hero/tucson-hev-run1-1440.webp",
+          "width": 1440,
+          "height": 960
+        },
+        {
+          "src": "/images/hero/tucson-hev-run1-1920.webp",
+          "width": 1920,
+          "height": 1280
+        }
+      ],
+      "square": [
+        {
+          "src": "/images/hero/tucson-hev-run1-sq-640.webp",
+          "width": 640,
+          "height": 640
+        },
+        {
+          "src": "/images/hero/tucson-hev-run1-sq-1080.webp",
+          "width": 1080,
+          "height": 1080
+        }
+      ]
+    },
+    "palisade-0056": {
+      "landscape": [
+        {
+          "src": "/images/hero/palisade-0056-960.webp",
+          "width": 960,
+          "height": 636
+        },
+        {
+          "src": "/images/hero/palisade-0056-1440.webp",
+          "width": 1440,
+          "height": 953
+        },
+        {
+          "src": "/images/hero/palisade-0056-1920.webp",
+          "width": 1920,
+          "height": 1271
+        }
+      ],
+      "square": [
+        {
+          "src": "/images/hero/palisade-0056-sq-640.webp",
+          "width": 640,
+          "height": 640
+        },
+        {
+          "src": "/images/hero/palisade-0056-sq-1080.webp",
+          "width": 1080,
+          "height": 1080
+        }
+      ]
+    }
   }
 }

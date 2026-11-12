@@ -27,6 +27,7 @@ export function QuoteSection({
     <section id={QUOTE_ANCHOR} aria-labelledby="quote-title" className="section-y scroll-mt-16 bg-surface">
       <div className="container-page grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5 lg:pt-4">
+          <div className="lg:sticky lg:top-28">
           <SectionHeading
             id="quote-title"
             as={headingAs}
@@ -34,15 +35,13 @@ export function QuoteSection({
             title={title}
             description="Để lại thông tin, chuyên viên tư vấn sẽ gửi báo giá chi tiết cùng chương trình bán hàng đang áp dụng."
           />
-          <ul className="mt-10 space-y-6">
+          <ul className="mt-10 divide-y divide-ink/10 border-y border-ink/10">
             {benefits.map(({ icon: Icon, title: t, text }) => (
-              <li key={t} className="flex gap-4">
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white text-accent shadow-[var(--shadow-soft)]">
-                  <Icon className="size-5" aria-hidden />
-                </span>
+              <li key={t} className="flex gap-4 py-5">
+                <Icon className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden />
                 <div>
                   <p className="font-semibold">{t}</p>
-                  <p className="text-[0.9375rem] text-muted">{text}</p>
+                  <p className="mt-0.5 text-[0.9375rem] text-muted">{text}</p>
                 </div>
               </li>
             ))}
@@ -59,9 +58,10 @@ export function QuoteSection({
               </span>
             </a>
           )}
+          </div>
         </div>
         <div className="min-w-0 lg:col-span-7">
-          <Suspense fallback={<div className="min-h-[640px] rounded-3xl bg-white shadow-[var(--shadow-lift)]" aria-busy="true" />}>
+          <Suspense fallback={<div className="min-h-[860px] rounded-[var(--radius-panel)] bg-white shadow-[var(--shadow-lift)]" aria-busy="true" />}>
             <QuoteForm defaultVehicle={defaultVehicle} />
           </Suspense>
         </div>

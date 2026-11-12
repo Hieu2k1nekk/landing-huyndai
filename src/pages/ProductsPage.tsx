@@ -3,7 +3,7 @@ import { breadcrumbSchema, globalSchemas, vehicleListSchema } from '@/seo/schema
 import { vehicles } from '@/data/vehicles'
 import { PageHeader, HOME_CRUMB } from '@/components/layout/PageHeader'
 import { VehicleGrid } from '@/components/vehicles/VehicleGrid'
-import { QuoteSection } from '@/components/home/QuoteSection'
+import { InstallmentSection } from '@/components/installment/InstallmentSection'
 import { PriceNote } from '@/components/ui/PriceNote'
 
 const crumbs = [HOME_CRUMB, { name: 'Sản phẩm', path: '/san-pham' }]
@@ -29,7 +29,7 @@ export default function ProductsPage() {
           <PriceNote className="mt-8" />
         </div>
       </section>
-      <QuoteSection />
+      <InstallmentSection />
     </>
   )
 }

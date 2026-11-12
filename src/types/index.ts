@@ -78,3 +78,27 @@ export interface ResponsiveImage {
   height: number
   variants: { src: string; width: number; height: number }[]
 }
+
+/* ---------------- Màu ngoại thất ---------------- */
+
+export interface VehicleColor {
+  /** id ổn định, dùng trong URL (?mau=) và tên file ảnh */
+  id: string
+  /** Tên màu theo website chính thức */
+  name: string
+  /** Mã màu cho nút swatch – lấy từ ảnh swatch chính thức */
+  hex: string
+  /** Chỉ có ở các phiên bản này (bỏ trống = chưa có dữ liệu phân theo phiên bản) */
+  versions?: string[]
+  /** true = chưa có ảnh chính xác của màu này (UI đánh dấu "chưa có ảnh") */
+  noImage?: boolean
+}
+
+export interface VehicleColorConfig {
+  /** 'pending' = chưa có dữ liệu màu + ảnh chính xác cho đúng thế hệ xe đang bán */
+  status: 'available' | 'pending'
+  defaultColor?: string
+  colors: VehicleColor[]
+  sourceUrl?: string
+  note?: string
+}

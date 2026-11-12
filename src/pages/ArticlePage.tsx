@@ -11,7 +11,7 @@ import { HOME_CRUMB } from '@/components/layout/PageHeader'
 import { NewsImage } from '@/components/ui/NewsImage'
 import { NewsCard } from '@/components/news/NewsCard'
 import { VehicleCard } from '@/components/vehicles/VehicleCard'
-import { QuoteSection } from '@/components/home/QuoteSection'
+import { InstallmentSection } from '@/components/installment/InstallmentSection'
 import NotFoundPage from './NotFoundPage'
 
 export default function ArticlePage() {
@@ -121,7 +121,7 @@ export default function ArticlePage() {
         </div>
       </section>
 
-      <QuoteSection />
+      <InstallmentSection />
     </>
   )
 }

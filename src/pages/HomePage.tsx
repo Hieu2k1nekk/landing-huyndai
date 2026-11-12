@@ -1,4 +1,3 @@
-import { lazy, Suspense } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Seo } from '@/seo/head'
 import { globalSchemas, vehicleListSchema } from '@/seo/schema'
@@ -8,14 +7,11 @@ import { Hero } from '@/components/home/Hero'
 import { FeaturedVehicles } from '@/components/home/FeaturedVehicles'
 import { PromotionsSection } from '@/components/home/PromotionsSection'
 import { WhyHyundai } from '@/components/home/WhyHyundai'
-import { QuoteSection } from '@/components/home/QuoteSection'
+import { InstallmentSection } from '@/components/installment/InstallmentSection'
 import { VehicleGrid } from '@/components/vehicles/VehicleGrid'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { ButtonLink } from '@/components/ui/Button'
 import { PriceNote } from '@/components/ui/PriceNote'
-
-// Carousel (Swiper) tách chunk riêng – nằm cuối trang
-const NewsSection = lazy(() => import('@/components/home/NewsSection').then((m) => ({ default: m.NewsSection })))
 
 export default function HomePage() {
   return (
@@ -52,10 +48,7 @@ export default function HomePage() {
       <FeaturedVehicles />
       <PromotionsSection />
       <WhyHyundai />
-      <QuoteSection />
-      <Suspense fallback={<div className="min-h-[640px]" aria-busy="true" />}>
-        <NewsSection />
-      </Suspense>
+      <InstallmentSection />
     </>
   )
 }

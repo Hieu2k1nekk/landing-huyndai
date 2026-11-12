@@ -13,8 +13,21 @@ export interface LeadPayload {
   phone: string
   vehicle: string
   version?: string
+  /** Màu ngoại thất khách quan tâm (tên hiển thị, vd: "Đỏ đô") */
+  color?: string
   province: string
   paymentMethod: 'tra-thang' | 'tra-gop'
+  /** Phương án trả góp khách tự ước tính trên website (chỉ để tư vấn viên tham khảo, không phải hồ sơ vay) */
+  financing?: {
+    carPrice: number
+    downPaymentPercent: number
+    downPayment: number
+    loanAmount: number
+    termMonths: number
+    annualRatePercent: number
+    monthlyPayment: number
+    estimateOnly: true
+  }
   note?: string
   source: string // trang gửi form
   submittedAt: string

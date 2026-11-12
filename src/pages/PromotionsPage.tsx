@@ -5,7 +5,7 @@ import { promotions } from '@/data/promotions'
 import { PageHeader, HOME_CRUMB } from '@/components/layout/PageHeader'
 import { PromotionCard } from '@/components/promotions/PromotionCard'
 import { Reveal } from '@/components/ui/Reveal'
-import { QuoteSection } from '@/components/home/QuoteSection'
+import { InstallmentSection } from '@/components/installment/InstallmentSection'
 
 const crumbs = [HOME_CRUMB, { name: 'Khuyến mãi', path: '/khuyen-mai' }]
 
@@ -43,7 +43,7 @@ export default function PromotionsPage() {
           </div>
         </div>
       </section>
-      <QuoteSection title="Nhận ưu đãi đang áp dụng" />
+      <InstallmentSection />
     </>
   )
 }

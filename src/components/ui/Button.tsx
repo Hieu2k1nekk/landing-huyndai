@@ -6,23 +6,23 @@ type Variant = 'primary' | 'accent' | 'outline' | 'ghost' | 'light' | 'outline-l
 type Size = 'sm' | 'md' | 'lg'
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap select-none ' +
+  'inline-flex items-center justify-center gap-2 rounded-[var(--radius-control)] font-semibold whitespace-nowrap select-none ' +
   'transition-[background-color,color,border-color,box-shadow,transform] duration-200 ease-out ' +
   'active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60 focus-visible:outline-offset-2'
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-brand text-white hover:bg-brand-700 shadow-[0_6px_18px_-6px_rgb(0_44_95/0.5)]',
-  accent: 'bg-accent text-white hover:bg-accent-600 shadow-[0_6px_18px_-6px_rgb(0_114_206/0.55)]',
-  outline: 'border border-line bg-white text-ink hover:border-brand hover:text-brand',
-  ghost: 'text-brand hover:bg-brand/5',
-  light: 'bg-white text-brand hover:bg-surface',
-  'outline-light': 'border border-white/30 text-white hover:bg-white/10 hover:border-white/60',
+  primary: 'bg-brand text-white hover:bg-brand-700',
+  accent: 'bg-accent text-white hover:bg-accent-600',
+  outline: 'border border-ink/15 bg-white text-ink hover:border-brand hover:text-brand',
+  ghost: 'text-brand hover:bg-brand/[0.06]',
+  light: 'bg-white text-brand hover:bg-white/90',
+  'outline-light': 'border border-white/35 text-white hover:bg-white/10 hover:border-white/70',
 }
 
 const sizes: Record<Size, string> = {
   sm: 'h-10 px-4 text-sm',
   md: 'h-12 px-6 text-[0.9375rem]',
-  lg: 'h-14 px-7 text-base',
+  lg: 'h-14 px-8 text-base',
 }
 
 export const buttonClass = (variant: Variant = 'primary', size: Size = 'md', className?: string) =>
