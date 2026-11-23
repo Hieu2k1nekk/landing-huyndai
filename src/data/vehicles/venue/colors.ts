@@ -7,7 +7,7 @@ import type { VehicleColorConfig } from '@/types'
 
 export const colors: VehicleColorConfig = {
   status: 'available',
-  defaultColor: 'xanh-duong',
+  defaultColor: 'trang',
   sourceUrl: 'https://hyundai.thanhcong.vn/san-pham/venue',
   colors: [
     {

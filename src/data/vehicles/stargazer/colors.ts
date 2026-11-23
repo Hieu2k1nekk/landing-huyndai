@@ -7,7 +7,7 @@ import type { VehicleColorConfig } from '@/types'
 
 export const colors: VehicleColorConfig = {
   status: 'available',
-  defaultColor: 'do',
+  defaultColor: 'trang',
   sourceUrl: 'https://hyundai.thanhcong.vn/stargazer',
   colors: [
     {

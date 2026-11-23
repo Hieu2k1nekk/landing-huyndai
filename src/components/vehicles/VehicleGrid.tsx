@@ -6,11 +6,26 @@ import { cn } from '@/utils/cn'
 
 type Filter = BodyType | 'all'
 
+/** Thứ tự ưu tiên khi chọn "Tất cả"; các xe còn lại giữ nguyên thứ tự gốc, xếp sau */
+const PRIORITY = ['palisade', 'santa-fe', 'tucson', 'creta', 'accent']
+const rank = (slug: string) => {
+  const i = PRIORITY.indexOf(slug)
+  return i === -1 ? PRIORITY.length : i
+}
+const sortedAll = [...vehicles].sort((a, b) => rank(a.slug) - rank(b.slug))
+
 /**
  * Lưới xe + bộ lọc kiểu dáng dạng segmented control (nền trượt theo lựa chọn).
  * Mặc định "Tất cả" -> toàn bộ xe có trong HTML prerender (tốt cho SEO).
  */
-export function VehicleGrid({ headingLevel = 'h3' }: { headingLevel?: 'h2' | 'h3' }) {
+export function VehicleGrid({
+  headingLevel = 'h3',
+  compactMobile = false,
+}: {
+  headingLevel?: 'h2' | 'h3'
+  /** Mobile: 2 xe/hàng, thẻ rút gọn (ảnh, tên, giá) */
+  compactMobile?: boolean
+}) {
   const [filter, setFilter] = useState<Filter>('all')
   const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null)
   const btnRefs = useRef<Record<string, HTMLButtonElement | null>>({})
@@ -22,7 +37,7 @@ export function VehicleGrid({ headingLevel = 'h3' }: { headingLevel?: 'h2' | 'h3
     return c
   }, [])
 
-  const list = filter === 'all' ? vehicles : vehicles.filter((v) => v.bodyType === filter)
+  const list = filter === 'all' ? sortedAll : vehicles.filter((v) => v.bodyType === filter)
 
   // Đo vị trí nút đang chọn để đặt nền trượt (chỉ chạy phía client)
   useEffect(() => {
@@ -84,14 +99,19 @@ export function VehicleGrid({ headingLevel = 'h3' }: { headingLevel?: 'h2' | 'h3
         Đang hiển thị {list.length} dòng xe
       </p>
 
-      <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-7">
+      <ul
+        className={cn(
+          'mt-10 grid gap-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-7',
+          compactMobile && 'max-sm:grid-cols-2 max-sm:gap-3',
+        )}
+      >
         {list.map((v, i) => (
           <li
             key={`${filter}-${v.slug}`}
             className="animate-[fade-up_0.55s_var(--ease-out-soft)_both]"
             style={{ animationDelay: `${Math.min(i, 8) * 50}ms` }}
           >
-            <VehicleCard vehicle={v} headingLevel={headingLevel} />
+            <VehicleCard vehicle={v} headingLevel={headingLevel} compactMobile={compactMobile} />
           </li>
         ))}
       </ul>

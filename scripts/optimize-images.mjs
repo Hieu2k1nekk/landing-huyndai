@@ -105,6 +105,36 @@ async function processCarColors() {
   }
 }
 
+/**
+ * Thư viện ảnh xe ở trang chi tiết: src/assets/images/gallery/<slug>/<nn>.(jpg|png|webp)
+ *   -> public/images/gallery/<slug>/<nn>-<w>.webp  (giữ tỉ lệ gốc, tối đa 1920px)
+ */
+const GALLERY_WIDTHS = [640, 1280, 1920]
+
+async function processGallery() {
+  manifest.gallery = {}
+  const dir = path.join(SRC, 'gallery')
+  if (!existsSync(dir)) return
+  for (const slug of await readdir(dir)) {
+    const outDir = path.join(OUT, 'gallery', slug)
+    await mkdir(outDir, { recursive: true })
+    manifest.gallery[slug] = []
+    for (const file of (await readdir(path.join(dir, slug))).filter((f) => /\.(jpe?g|png|webp)$/i.test(f)).sort()) {
+      const id = file.replace(/\.[^.]+$/, '')
+      const src = path.join(dir, slug, file)
+      const meta = await sharp(src).metadata()
+      const variants = []
+      for (const w of [...new Set(GALLERY_WIDTHS.map((w) => Math.min(w, meta.width)))]) {
+        const name = `${id}-${w}.webp`
+        const info = await sharp(src).resize({ width: w, withoutEnlargement: true }).webp({ quality: 78, effort: 5 }).toFile(path.join(outDir, name))
+        variants.push({ src: `/images/gallery/${slug}/${name}`, width: info.width, height: info.height })
+      }
+      manifest.gallery[slug].push({ id, width: meta.width, height: meta.height, variants })
+    }
+    console.log(`✓ gallery ${slug}: ${manifest.gallery[slug].length} ảnh`)
+  }
+}
+
 async function processNews() {
   const dir = path.join(SRC, 'news')
   await mkdir(path.join(OUT, 'news'), { recursive: true })
@@ -131,12 +161,9 @@ async function processNews() {
  *  - landscape: giữ tỉ lệ gốc, dùng cho tablet/desktop (object-fit: cover + object-position)
  *  - square:    crop vuông quanh xe (focusX = tâm xe theo chiều ngang, 0..1) cho mobile
  */
-const HERO = [
-  { name: 'tucson-hev-run1', focusX: 0.47 },
-  { name: 'palisade-0056', focusX: 0.49 },
-]
-const HERO_LANDSCAPE = [960, 1440, 1920]
-const HERO_SQUARE = [640, 1080]
+const HERO = [{ name: 'hero-factory', focusX: 0.6 }]
+const HERO_LANDSCAPE = [960, 1440, 1920, 2560]
+const HERO_SQUARE = [640, 1080, 1440]
 
 async function processHero() {
   manifest.hero = {}
@@ -145,20 +172,21 @@ async function processHero() {
     const file = path.join(SRC, 'news', `${name}.jpg`)
     const meta = await sharp(file).metadata()
     const landscape = []
-    for (const w of HERO_LANDSCAPE.filter((w) => w <= meta.width)) {
+    for (const w of HERO_LANDSCAPE) {
       const out = `${name}-${w}.webp`
-      const info = await sharp(file).resize({ width: w }).webp({ quality: 74, effort: 6 }).toFile(path.join(OUT, 'hero', out))
+      const info = await sharp(file).resize({ width: w, kernel: 'lanczos3' }).sharpen({ sigma: 0.8, m1: 0.5, m2: 1.5 }).webp({ quality: 88, effort: 6 }).toFile(path.join(OUT, 'hero', out))
       landscape.push({ src: `/images/hero/${out}`, width: info.width, height: info.height })
     }
     const side = meta.height
     const left = Math.max(0, Math.min(meta.width - side, Math.round(focusX * meta.width - side / 2)))
     const square = []
-    for (const w of HERO_SQUARE.filter((w) => w <= side)) {
+    for (const w of HERO_SQUARE) {
       const out = `${name}-sq-${w}.webp`
       await sharp(file)
         .extract({ left, top: 0, width: side, height: side })
-        .resize(w, w)
-        .webp({ quality: 74, effort: 6 })
+        .resize(w, w, { kernel: 'lanczos3' })
+        .sharpen({ sigma: 0.8, m1: 0.5, m2: 1.5 })
+        .webp({ quality: 88, effort: 6 })
         .toFile(path.join(OUT, 'hero', out))
       square.push({ src: `/images/hero/${out}`, width: w, height: w })
     }
@@ -177,6 +205,7 @@ async function processOg() {
 
 await processCars()
 await processCarColors()
+await processGallery()
 await processNews()
 await processHero()
 await processOg()

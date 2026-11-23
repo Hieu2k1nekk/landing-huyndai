@@ -3,21 +3,17 @@ import { Controller, useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Select from '@radix-ui/react-select'
 import { AlertCircle, Check, CheckCircle2, Loader2, Phone, RotateCcw } from 'lucide-react'
-import { Link, useLocation } from 'react-router'
-import { getStartingPrice, getVehicle, vehicles } from '@/data/vehicles'
-import { provinces } from '@/data/provinces'
+import { useLocation } from 'react-router'
+import { getVehicle, vehicles } from '@/data/vehicles'
 import { dealer, telHref } from '@/config/site'
 import { LeadServiceNotConfiguredError, submitLead } from '@/services/leadService'
 import { cn } from '@/utils/cn'
 import { CarImage } from '@/components/ui/CarImage'
 import { Button } from '@/components/ui/Button'
 import { borderFor, control, SelectContent, SelectTrigger } from '@/components/ui/FormControls'
-import { PriceTag } from '@/components/ui/PriceTag'
-import { VehicleImagePreview } from '@/components/vehicles/color/VehicleImagePreview'
-import { VehicleColorField } from '@/components/vehicles/color/VehicleColorField'
-import { setVehicleColor, useVehicleColor } from '@/hooks/useVehicleColor'
 import { QUOTE_EVENT, type QuoteIntent } from './QuoteLink'
-import { formatPercent, formatTerm, formatVnd, type InstallmentPlan } from '@/utils/installment'
+import type { InstallmentPlan } from '@/utils/installment'
+import { Captcha, CAPTCHA_ENABLED } from './Captcha'
 import { quoteSchema, type QuoteFormInput, type QuoteFormValues } from './quoteSchema'
 
 type Status =
@@ -61,8 +57,6 @@ function StepTitle({ n, children }: { n: string; children: string }) {
   )
 }
 
-const provinceItems = provinces.map((p) => ({ value: p, label: p }))
-
 export function QuoteForm({
   defaultVehicle,
   intent,
@@ -81,6 +75,8 @@ export function QuoteForm({
   const location = useLocation()
   const [status, setStatus] = useState<Status>({ kind: 'idle' })
   const pickerRef = useRef<HTMLDivElement>(null)
+  /** Đổi key để dựng lại captcha (token chỉ dùng được một lần) */
+  const [captchaKey, setCaptchaKey] = useState(0)
 
   const {
     register,
@@ -99,25 +95,17 @@ export function QuoteForm({
       vehicle: defaultVehicle ?? '',
       version: '',
       color: '',
-      province: '',
       paymentMethod: installment ? 'tra-gop' : 'tra-thang',
-      consent: false,
+      captchaToken: '',
       website: '',
     },
   })
 
+  const onCaptcha = useCallback((t: string) => setValue('captchaToken', t, { shouldValidate: !!t }), [setValue])
+
   const vehicleSlug = useWatch({ control: formControl, name: 'vehicle' })
   const selected = vehicleSlug ? getVehicle(vehicleSlug) : undefined
 
-  const payment = useWatch({ control: formControl, name: 'paymentMethod' })
-  const versionName = useWatch({ control: formControl, name: 'version' })
-
-  // Màu: một nguồn duy nhất là store màu theo mẫu xe (đồng bộ với card & trang chi tiết).
-  // Mỗi xe có lựa chọn riêng -> đổi xe không giữ nhầm màu của xe trước.
-  const { color, colors: vehicleColors } = useVehicleColor(vehicleSlug ?? '')
-  useEffect(() => {
-    setValue('color', color?.id ?? '')
-  }, [color, setValue])
 
   // Phiên bản: đổi dòng xe -> reset, TRỪ khi đi kèm yêu cầu báo giá cho đúng phiên bản của xe đó
   const pendingVersion = useRef<{ slug: string; version: string } | null>(null)
@@ -129,10 +117,9 @@ export function QuoteForm({
 
   /** Áp dụng xe + màu + phiên bản (từ nút báo giá hoặc URL) */
   const applyIntent = useCallback(
-    ({ vehicle, color: colorId, version }: QuoteIntent, validate: boolean) => {
+    ({ vehicle, version }: QuoteIntent, validate: boolean) => {
       const v = vehicle ? getVehicle(vehicle) : undefined
       if (!v) return
-      if (colorId) setVehicleColor(v.slug, colorId)
       const ver = version && v.versions.some((x) => x.name === version) ? version : ''
       pendingVersion.current = { slug: v.slug, version: ver }
       setValue('vehicle', v.slug, { shouldValidate: validate })
@@ -181,8 +168,6 @@ export function QuoteForm({
         phone: values.phone,
         vehicle: v.name,
         version: values.version || undefined,
-        color: (values.vehicle && values.color && vehicleColors.find((c) => c.id === values.color)?.name) || undefined,
-        province: values.province,
         paymentMethod: values.paymentMethod,
         financing:
           installment && values.paymentMethod === 'tra-gop'
@@ -201,8 +186,10 @@ export function QuoteForm({
         submittedAt: new Date().toISOString(),
       })
       setStatus({ kind: 'success', name: values.fullName.split(' ').at(-1) ?? values.fullName, vehicle: v.name })
-      reset({ ...values, fullName: '', phone: '', consent: false })
+      reset({ ...values, fullName: '', phone: '', captchaToken: '' })
     } catch (err) {
+      setValue('captchaToken', '')
+      setCaptchaKey((k) => k + 1)
       setStatus({ kind: 'error', reason: err instanceof LeadServiceNotConfiguredError ? 'not-configured' : 'network' })
     }
   }
@@ -273,68 +260,6 @@ export function QuoteForm({
           </div>
         </div>
         <FieldError id={id('vehicle-error')} message={err('vehicle')} />
-
-        {/* Màu ngoại thất của xe đang chọn */}
-        <div className="mt-6">
-          <p className="mb-2 text-sm font-semibold text-ink">
-            Màu ngoại thất
-          </p>
-          {selected ? (
-            <VehicleColorField key={selected.slug} vehicle={selected} sizes="160px" />
-          ) : (
-            <p className="flex min-h-[3.625rem] items-center text-[0.8125rem] text-muted">Chọn dòng xe trước để xem màu.</p>
-          )}
-        </div>
-
-        {/* Tóm tắt xe khách đang quan tâm */}
-        <div className="mt-4 flex min-h-[5.5rem] items-center gap-4 rounded-xl bg-surface px-4 py-3" aria-live="polite">
-          {selected ? (
-            <>
-              <VehicleImagePreview
-                slug={selected.slug}
-                name={selected.name}
-                color={color}
-                sizes="128px"
-                className="w-24 shrink-0 sm:w-32"
-              />
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-bold text-brand">{selected.name}</p>
-                <p className="mt-0.5 text-sm text-muted">
-                  {[
-                    color ? `Màu ${color.name}` : 'Màu: đang cập nhật',
-                    versionName || 'Tất cả phiên bản',
-                    payment === 'tra-gop' ? 'Trả góp' : 'Trả thẳng',
-                  ].join(' · ')}
-                </p>
-              </div>
-              <PriceTag price={getStartingPrice(selected)} size="sm" className="hidden shrink-0 text-right sm:block" />
-            </>
-          ) : (
-            <p className="text-sm text-muted">Chọn một mẫu xe để xem màu sắc, giá khởi điểm và các phiên bản.</p>
-          )}
-        </div>
-
-        {installment && (
-          <div className="mt-4 rounded-xl border border-accent/25 bg-accent/[0.04] px-4 py-3.5">
-            <p className="text-sm font-semibold text-ink">Phương án trả góp bạn đã ước tính</p>
-            <dl className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm sm:grid-cols-3">
-              {[
-                ['Giá xe', formatVnd(installment.carPrice)],
-                [`Trả trước ${installment.downPaymentPercent}%`, formatVnd(installment.downPayment)],
-                ['Số tiền vay', formatVnd(installment.loanAmount)],
-                ['Thời hạn', formatTerm(installment.termMonths)],
-                ['Lãi suất giả định', `${formatPercent(installment.annualRatePercent)}%/năm`],
-                ['Trả mỗi tháng ~', formatVnd(installment.monthlyPayment)],
-              ].map(([k, v]) => (
-                <div key={k} className="min-w-0">
-                  <dt className="text-xs text-muted">{k}</dt>
-                  <dd className="truncate font-semibold text-ink tabular-nums">{v}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-2 text-xs text-muted">Số liệu ước tính, không phải cam kết khoản vay. Gửi kèm khi chọn “Trả góp”.</p>
-          </div>
-        )}
 
         <div className="mt-5 grid gap-5 sm:grid-cols-2">
           <div>
@@ -426,37 +351,6 @@ export function QuoteForm({
             <FieldError id={id('phone-error')} message={err('phone')} />
           </div>
 
-          <div className="sm:col-span-2">
-            <Label htmlFor={id('province')} required>
-              Tỉnh/Thành phố đăng ký xe
-            </Label>
-            <Controller
-              control={formControl}
-              name="province"
-              render={({ field }) => (
-                <Select.Root
-                  value={field.value ?? ''}
-                  onValueChange={field.onChange}
-                  onOpenChange={(open) => !open && field.onBlur()}
-                  name={field.name}
-                  autoComplete="address-level1"
-                >
-                  <SelectTrigger
-                    ref={field.ref}
-                    id={id('province')}
-                    placeholder="Chọn tỉnh/thành phố"
-                    invalid={!!errors.province}
-                    aria-required
-                    aria-invalid={!!errors.province}
-                    aria-describedby={describedBy('province', !!errors.province)}
-                  />
-                  <SelectContent items={provinceItems} />
-                </Select.Root>
-              )}
-            />
-            <FieldError id={id('province-error')} message={err('province')} />
-          </div>
-
           {/* Honeypot */}
           <div className="absolute -left-[9999px]" aria-hidden="true">
             <label>
@@ -465,35 +359,12 @@ export function QuoteForm({
             </label>
           </div>
 
-          <div className="sm:col-span-2">
-            <label className="group flex cursor-pointer items-start gap-3 text-sm text-muted">
-              <input
-                type="checkbox"
-                className="peer sr-only"
-                aria-invalid={!!errors.consent}
-                aria-describedby={describedBy('consent', !!errors.consent)}
-                {...register('consent')}
-              />
-              <span
-                aria-hidden
-                className={cn(
-                  'mt-px grid size-5 shrink-0 place-items-center rounded-md border bg-white text-transparent transition-colors',
-                  'peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:ring-4 peer-focus-visible:ring-accent/25',
-                  errors.consent ? 'border-red-400' : 'border-ink/25 group-hover:border-ink/45',
-                )}
-              >
-                <Check className="size-3.5" strokeWidth={3} />
-              </span>
-              <span>
-                Tôi đồng ý để showroom liên hệ tư vấn và xử lý thông tin theo{' '}
-                <Link to="/chinh-sach-bao-mat" className="font-medium text-accent underline-offset-2 hover:underline">
-                  Chính sách bảo mật
-                </Link>
-                .
-              </span>
-            </label>
-            <FieldError id={id('consent-error')} message={err('consent')} />
-          </div>
+          {CAPTCHA_ENABLED && (
+            <div className="sm:col-span-2">
+              <Captcha key={captchaKey} invalid={!!errors.captchaToken} onToken={onCaptcha} />
+              <FieldError id={id('captcha-error')} message={err('captchaToken')} />
+            </div>
+          )}
         </div>
       </fieldset>
 

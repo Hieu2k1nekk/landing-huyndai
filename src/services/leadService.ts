@@ -15,7 +15,6 @@ export interface LeadPayload {
   version?: string
   /** Màu ngoại thất khách quan tâm (tên hiển thị, vd: "Đỏ đô") */
   color?: string
-  province: string
   paymentMethod: 'tra-thang' | 'tra-gop'
   /** Phương án trả góp khách tự ước tính trên website (chỉ để tư vấn viên tham khảo, không phải hồ sơ vay) */
   financing?: {
@@ -50,7 +49,8 @@ export class LeadSubmitError extends Error {
   }
 }
 
-const endpoint = import.meta.env.VITE_LEAD_API_URL as string | undefined
+/** Mặc định: hàm serverless /api/lead (api/lead.ts) -> Zalo Bot. Đặt VITE_LEAD_API_URL để dùng endpoint khác. */
+const endpoint = (import.meta.env.VITE_LEAD_API_URL as string | undefined) || '/api/lead'
 const devMock = import.meta.env.DEV && import.meta.env.VITE_LEAD_MOCK === 'true'
 
 export const isLeadServiceConfigured = Boolean(endpoint) || devMock

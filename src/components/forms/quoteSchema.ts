@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { vehicles } from '@/data/vehicles'
-import { provinces } from '@/data/provinces'
+import { CAPTCHA_ENABLED } from './Captcha'
 
 /** Chuẩn hóa: bỏ khoảng trắng, dấu chấm, gạch; +84 -> 0 */
 export const normalizeVnPhone = (raw: string) => raw.replace(/[\s.\-()]/g, '').replace(/^\+?84/, '0')
@@ -30,13 +30,12 @@ export const quoteSchema = z.object({
   version: z.string().optional(),
   /** Mã màu ngoại thất (id trong src/data/vehicles/<slug>/colors.ts) – tuỳ chọn */
   color: z.string().optional(),
-  province: z
-    .string()
-    .min(1, 'Vui lòng chọn tỉnh/thành phố')
-    .refine((v) => (provinces as readonly string[]).includes(v), 'Tỉnh/thành phố không hợp lệ'),
   paymentMethod: z.enum(['tra-thang', 'tra-gop'], { error: 'Vui lòng chọn hình thức thanh toán' }),
-  /** Không tích sẵn: sự đồng ý phải là hành động chủ động của người dùng (NĐ 13/2023/NĐ-CP) */
-  consent: z.boolean().refine((v) => v, 'Vui lòng đồng ý để chúng tôi liên hệ tư vấn'),
+  /** 'ok' khi khách giải đúng phép tính captcha */
+  captchaToken: z
+    .string()
+    .optional()
+    .refine((v) => !CAPTCHA_ENABLED || !!v, 'Vui lòng nhập đúng kết quả phép tính'),
   /** Honeypot chống spam: người dùng thật không thấy trường này */
   website: z.string().max(0).optional(),
 })

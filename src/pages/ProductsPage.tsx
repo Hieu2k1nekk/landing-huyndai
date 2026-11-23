@@ -25,7 +25,7 @@ export default function ProductsPage() {
       />
       <section aria-label="Danh sách xe" className="section-y">
         <div className="container-page">
-          <VehicleGrid headingLevel="h2" />
+          <VehicleGrid headingLevel="h2" compactMobile />
           <PriceNote className="mt-8" />
         </div>
       </section>

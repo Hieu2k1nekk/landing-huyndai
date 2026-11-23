@@ -4,9 +4,10 @@ import { globalSchemas, vehicleListSchema } from '@/seo/schema'
 import { vehicles } from '@/data/vehicles'
 import { siteConfig } from '@/config/site'
 import { Hero } from '@/components/home/Hero'
-import { FeaturedVehicles } from '@/components/home/FeaturedVehicles'
+// import { FeaturedVehicles } from '@/components/home/FeaturedVehicles'
 import { PromotionsSection } from '@/components/home/PromotionsSection'
 import { WhyHyundai } from '@/components/home/WhyHyundai'
+import { QuoteSection } from '@/components/home/QuoteSection'
 import { InstallmentSection } from '@/components/installment/InstallmentSection'
 import { VehicleGrid } from '@/components/vehicles/VehicleGrid'
 import { SectionHeading } from '@/components/ui/SectionHeading'
@@ -39,16 +40,17 @@ export default function HomePage() {
             </ButtonLink>
           </div>
           <div className="mt-10">
-            <VehicleGrid />
+            <VehicleGrid compactMobile />
           </div>
           <PriceNote className="mt-8" />
         </div>
       </section>
 
-      <FeaturedVehicles />
+      {/* <FeaturedVehicles /> */}
+      <InstallmentSection />
       <PromotionsSection />
       <WhyHyundai />
-      <InstallmentSection />
+      <QuoteSection anchorId="dang-ky-tu-van" />
     </>
   )
 }

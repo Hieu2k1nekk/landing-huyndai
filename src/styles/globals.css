@@ -224,6 +224,12 @@ body > div > footer {
     transform: scale(1);
   }
 }
+@keyframes car-in {
+  from {
+    opacity: 0;
+    transform: translate3d(24px, 0, 0) scale(0.98);
+  }
+}
 @keyframes progress {
   from {
     transform: scaleX(0);

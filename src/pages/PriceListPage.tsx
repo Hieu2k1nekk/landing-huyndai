@@ -5,7 +5,7 @@ import { breadcrumbSchema, globalSchemas } from '@/seo/schema'
 import { vehicles } from '@/data/vehicles'
 import { pricing } from '@/config/site'
 import { formatPriceFull } from '@/utils/format'
-import { PageHeader, HOME_CRUMB } from '@/components/layout/PageHeader'
+import { HOME_CRUMB } from '@/components/layout/PageHeader'
 import { CarImage } from '@/components/ui/CarImage'
 import { PriceNote } from '@/components/ui/PriceNote'
 import { SectionHeading } from '@/components/ui/SectionHeading'
@@ -34,12 +34,32 @@ export default function PriceListPage() {
         keywords={['bảng giá xe Hyundai', 'giá lăn bánh Hyundai', 'giá xe Hyundai']}
         jsonLd={[...globalSchemas(), breadcrumbSchema(crumbs)]}
       />
-      <PageHeader
-        crumbs={crumbs}
-        eyebrow="Bảng giá"
-        title="Bảng giá xe Hyundai"
-        description={`Giá ${label} các phiên bản đã bao gồm VAT. Để có giá lăn bánh chính xác theo tỉnh/thành và chương trình ưu đãi hiện hành, vui lòng nhận báo giá.`}
-      />
+      <h1 className="sr-only">Bảng giá xe Hyundai</h1>
+
+      <section aria-labelledby="onroad-title" className="section-y pb-0!">
+        <div className="container-page grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <SectionHeading
+              id="onroad-title"
+              eyebrow="Chi phí lăn bánh"
+              title="Giá lăn bánh gồm những gì?"
+              description="Ngoài giá xe, người mua cần chuẩn bị các khoản phí đăng ký để xe lưu thông hợp pháp. Mức phí thay đổi theo địa phương."
+            />
+            <QuoteLink className="mt-8">Nhận bảng tính lăn bánh</QuoteLink>
+          </div>
+          <dl className="grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-2 lg:col-span-7">
+            {onRoadCosts.map(([t, d], i) => (
+              <div key={t} className="bg-white p-6">
+                <dt className="flex items-center gap-3 font-bold">
+                  <span className="text-sm text-accent tabular-nums">0{i + 1}</span>
+                  {t}
+                </dt>
+                <dd className="mt-2 text-[0.9375rem] text-muted">{d}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
       <section aria-label="Bảng giá các dòng xe" className="section-y">
         <div className="container-page">
@@ -95,31 +115,6 @@ export default function PriceListPage() {
             </table>
           </div>
           <PriceNote className="mt-4" />
-        </div>
-      </section>
-
-      <section aria-labelledby="onroad-title" className="pb-16 lg:pb-24">
-        <div className="container-page grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-5">
-            <SectionHeading
-              id="onroad-title"
-              eyebrow="Chi phí lăn bánh"
-              title="Giá lăn bánh gồm những gì?"
-              description="Ngoài giá xe, người mua cần chuẩn bị các khoản phí đăng ký để xe lưu thông hợp pháp. Mức phí thay đổi theo địa phương."
-            />
-            <QuoteLink className="mt-8">Nhận bảng tính lăn bánh</QuoteLink>
-          </div>
-          <dl className="grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-2 lg:col-span-7">
-            {onRoadCosts.map(([t, d], i) => (
-              <div key={t} className="bg-white p-6">
-                <dt className="flex items-center gap-3 font-bold">
-                  <span className="text-sm text-accent tabular-nums">0{i + 1}</span>
-                  {t}
-                </dt>
-                <dd className="mt-2 text-[0.9375rem] text-muted">{d}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </section>
 

@@ -57,8 +57,6 @@ export interface DealerInfo {
   };
 }
 
-const ADDRESS_QUERY = "KCN Gián Khẩu, Gia Trấn, Ninh Bình";
-
 export const dealer: DealerInfo = {
   name: "",
   legalName: "",
@@ -73,9 +71,10 @@ export const dealer: DealerInfo = {
   email: "huongdtt.hyundainb@gmail.com",
   /** days để trống = chưa xác định ngày trong tuần (chỉ hiện giờ). schema chỉ điền khi biết rõ ngày, ví dụ 'Mo-Sa 07:30-17:00' */
   openingHours: [{ days: "", hours: "07:30 – 17:00", schema: "" }],
-  /** Tạo từ địa chỉ ở trên (tìm kiếm theo địa chỉ). Có toạ độ/link ghim chính xác thì thay vào. */
-  mapEmbedUrl: `https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS_QUERY)}&z=15&output=embed`,
-  mapUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS_QUERY)}`,
+  /** Ghim đúng vị trí showroom (Nhà Máy & Showroom Hyundai Thành Công – mã Plus Code 8WRH+45H). */
+  mapEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.031546709422!2d105.9279814!3d20.3403154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3136790052778ec9%3A0x27467801c55f89a5!2zTmjDoCBNw6F5ICYgU2hvd3Jvb20gSHl1bmRhaSBUaMOgbmggQ8O0bmc!5e0!3m2!1svi!2s!4v1795278759359!5m2!1svi!2s",
+  mapUrl: "https://maps.app.goo.gl/YzrneqTwuyXWpnVB9",
   geo: null,
   social: {
     zalo: env.VITE_DEALER_ZALO || "https://zalo.me/0965663386",

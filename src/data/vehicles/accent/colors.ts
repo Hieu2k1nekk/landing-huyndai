@@ -7,7 +7,7 @@ import type { VehicleColorConfig } from '@/types'
 
 export const colors: VehicleColorConfig = {
   status: 'available',
-  defaultColor: 'bac',
+  defaultColor: 'trang',
   sourceUrl: 'https://hyundai.thanhcong.vn/all-new-accent',
   colors: [
     {

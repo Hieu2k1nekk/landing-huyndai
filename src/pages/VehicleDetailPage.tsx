@@ -6,7 +6,7 @@ import { breadcrumbSchema, globalSchemas, vehicleProductSchema } from '@/seo/sch
 import { BODY_TYPE_LABEL, getStartingPrice, getVehicle, vehicles } from '@/data/vehicles'
 import { pricing } from '@/config/site'
 import { formatPriceFull, formatPriceShort } from '@/utils/format'
-import { getCarImage } from '@/utils/images'
+import { getCarImage, getGallery } from '@/utils/images'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { HOME_CRUMB } from '@/components/layout/PageHeader'
 import { NewsImage } from '@/components/ui/NewsImage'
@@ -18,6 +18,11 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { QuoteLink } from '@/components/forms/QuoteLink'
 import { InstallmentSection } from '@/components/installment/InstallmentSection'
 import { VehicleCard } from '@/components/vehicles/VehicleCard'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { A11y, FreeMode } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import { VehicleGallery } from '@/components/vehicles/VehicleGallery'
 import NotFoundPage from './NotFoundPage'
 
 const HERO_SIZES = '(min-width: 1024px) 720px, 100vw'
@@ -50,6 +55,7 @@ export default function VehicleDetailPage() {
     .slice(0, 3)
   const img = getCarImage(v.slug)
   const gallery = GALLERY[v.slug] ?? []
+  const photos = getGallery(v.slug)
 
   return (
     <>
@@ -215,19 +221,25 @@ export default function VehicleDetailPage() {
         </div>
       </section>
 
-      {gallery.length > 0 && (
+      {(photos.length > 0 || gallery.length > 0) && (
         <section aria-labelledby="gallery-title" className="pb-16 lg:pb-24">
           <div className="container-page">
-            <SectionHeading id="gallery-title" eyebrow="Hình ảnh" title={`${v.name} ngoài thực tế`} />
-            <ul className="mt-8 grid gap-4 sm:grid-cols-3">
-              {gallery.map((key, i) => (
-                <li key={key} className="aspect-[3/2] overflow-hidden rounded-[var(--radius-card)] bg-surface">
-                  <NewsImage image={key} alt={`${v.name} – hình ảnh thực tế ${i + 1}`} sizes="(min-width: 640px) 33vw, 100vw" />
-                </li>
-              ))}
-            </ul>
+            <SectionHeading id="gallery-title" eyebrow="Hình ảnh" title={`Hình ảnh ${v.name}`} />
+            {photos.length > 0 ? (
+              <div className="mt-8">
+                <VehicleGallery slug={v.slug} name={v.name} />
+              </div>
+            ) : (
+              <ul className="mt-8 grid gap-4 sm:grid-cols-3">
+                {gallery.map((key, i) => (
+                  <li key={key} className="aspect-[3/2] overflow-hidden rounded-[var(--radius-card)] bg-surface">
+                    <NewsImage image={key} alt={`${v.name} – hình ảnh thực tế ${i + 1}`} sizes="(min-width: 640px) 33vw, 100vw" />
+                  </li>
+                ))}
+              </ul>
+            )}
             <p className="mt-3 text-xs text-muted">
-              Ảnh: Hyundai Thành Công. Màu xe trong ảnh có thể khác màu đang chọn.
+              Ảnh minh họa. Màu xe và trang bị trong ảnh có thể khác phiên bản/màu đang chọn.
             </p>
           </div>
         </section>
@@ -235,16 +247,26 @@ export default function VehicleDetailPage() {
 
       <InstallmentSection defaultVehicle={v.slug} />
 
-      <section aria-labelledby="related-title" className="section-y">
+      <section aria-labelledby="related-title" className="section-y overflow-x-clip">
         <div className="container-page">
           <SectionHeading id="related-title" eyebrow="Có thể bạn quan tâm" title="Mẫu xe khác" />
-          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          <Swiper
+            modules={[FreeMode, A11y]}
+            freeMode={{ enabled: true, sticky: false }}
+            slidesPerView={2.15}
+            spaceBetween={12}
+            breakpoints={{
+              640: { slidesPerView: 2, spaceBetween: 20, freeMode: { enabled: false } },
+              1024: { slidesPerView: 3, spaceBetween: 24, freeMode: { enabled: false } },
+            }}
+            className="mt-10 !overflow-visible max-sm:!-mr-5 max-sm:!pr-5 [&_.swiper-slide]:!h-auto"
+          >
             {related.map((r) => (
-              <li key={r.slug}>
-                <VehicleCard vehicle={r} />
-              </li>
+              <SwiperSlide key={r.slug}>
+                <VehicleCard vehicle={r} compactMobile />
+              </SwiperSlide>
             ))}
-          </ul>
+          </Swiper>
         </div>
       </section>
     </>

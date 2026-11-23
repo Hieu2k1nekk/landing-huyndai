@@ -162,6 +162,27 @@
     }
   },
   "news": {
+    "hero-factory": {
+      "width": 1280,
+      "height": 853,
+      "variants": [
+        {
+          "src": "/images/news/hero-factory-640.webp",
+          "width": 640,
+          "height": 427
+        },
+        {
+          "src": "/images/news/hero-factory-960.webp",
+          "width": 960,
+          "height": 640
+        },
+        {
+          "src": "/images/news/hero-factory-1280.webp",
+          "width": 1280,
+          "height": 853
+        }
+      ]
+    },
     "palisade-0056": {
       "width": 1280,
       "height": 853,
@@ -978,66 +999,1460 @@
       }
     }
   },
+  "gallery": {
+    "accent": [
+      {
+        "id": "01",
+        "width": 1200,
+        "height": 763,
+        "variants": [
+          {
+            "src": "/images/gallery/accent/01-640.webp",
+            "width": 640,
+            "height": 407
+          },
+          {
+            "src": "/images/gallery/accent/01-1200.webp",
+            "width": 1200,
+            "height": 763
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 1200,
+        "height": 706,
+        "variants": [
+          {
+            "src": "/images/gallery/accent/02-640.webp",
+            "width": 640,
+            "height": 377
+          },
+          {
+            "src": "/images/gallery/accent/02-1200.webp",
+            "width": 1200,
+            "height": 706
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 1372,
+        "height": 814,
+        "variants": [
+          {
+            "src": "/images/gallery/accent/03-640.webp",
+            "width": 640,
+            "height": 380
+          },
+          {
+            "src": "/images/gallery/accent/03-1280.webp",
+            "width": 1280,
+            "height": 759
+          },
+          {
+            "src": "/images/gallery/accent/03-1372.webp",
+            "width": 1372,
+            "height": 814
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 1200,
+        "height": 784,
+        "variants": [
+          {
+            "src": "/images/gallery/accent/04-640.webp",
+            "width": 640,
+            "height": 418
+          },
+          {
+            "src": "/images/gallery/accent/04-1200.webp",
+            "width": 1200,
+            "height": 784
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 1024,
+        "height": 683,
+        "variants": [
+          {
+            "src": "/images/gallery/accent/05-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/accent/05-1024.webp",
+            "width": 1024,
+            "height": 683
+          }
+        ]
+      },
+      {
+        "id": "06",
+        "width": 1024,
+        "height": 682,
+        "variants": [
+          {
+            "src": "/images/gallery/accent/06-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/accent/06-1024.webp",
+            "width": 1024,
+            "height": 682
+          }
+        ]
+      },
+      {
+        "id": "07",
+        "width": 1120,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/accent/07-640.webp",
+            "width": 640,
+            "height": 343
+          },
+          {
+            "src": "/images/gallery/accent/07-1120.webp",
+            "width": 1120,
+            "height": 600
+          }
+        ]
+      }
+    ],
+    "creta": [
+      {
+        "id": "01",
+        "width": 2560,
+        "height": 1920,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/01-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/creta/01-1280.webp",
+            "width": 1280,
+            "height": 960
+          },
+          {
+            "src": "/images/gallery/creta/01-1920.webp",
+            "width": 1920,
+            "height": 1440
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 2560,
+        "height": 1920,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/02-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/creta/02-1280.webp",
+            "width": 1280,
+            "height": 960
+          },
+          {
+            "src": "/images/gallery/creta/02-1920.webp",
+            "width": 1920,
+            "height": 1440
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 1920,
+        "height": 1056,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/03-640.webp",
+            "width": 640,
+            "height": 352
+          },
+          {
+            "src": "/images/gallery/creta/03-1280.webp",
+            "width": 1280,
+            "height": 704
+          },
+          {
+            "src": "/images/gallery/creta/03-1920.webp",
+            "width": 1920,
+            "height": 1056
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 1920,
+        "height": 1055,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/04-640.webp",
+            "width": 640,
+            "height": 351
+          },
+          {
+            "src": "/images/gallery/creta/04-1280.webp",
+            "width": 1280,
+            "height": 703
+          },
+          {
+            "src": "/images/gallery/creta/04-1920.webp",
+            "width": 1920,
+            "height": 1055
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 800,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/05-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/creta/05-800.webp",
+            "width": 800,
+            "height": 600
+          }
+        ]
+      },
+      {
+        "id": "06",
+        "width": 1323,
+        "height": 800,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/06-640.webp",
+            "width": 640,
+            "height": 387
+          },
+          {
+            "src": "/images/gallery/creta/06-1280.webp",
+            "width": 1280,
+            "height": 774
+          },
+          {
+            "src": "/images/gallery/creta/06-1323.webp",
+            "width": 1323,
+            "height": 800
+          }
+        ]
+      },
+      {
+        "id": "07",
+        "width": 768,
+        "height": 513,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/07-640.webp",
+            "width": 640,
+            "height": 428
+          },
+          {
+            "src": "/images/gallery/creta/07-768.webp",
+            "width": 768,
+            "height": 513
+          }
+        ]
+      },
+      {
+        "id": "08",
+        "width": 768,
+        "height": 512,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/08-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/creta/08-768.webp",
+            "width": 768,
+            "height": 512
+          }
+        ]
+      },
+      {
+        "id": "09",
+        "width": 1067,
+        "height": 800,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/09-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/creta/09-1067.webp",
+            "width": 1067,
+            "height": 800
+          }
+        ]
+      },
+      {
+        "id": "10",
+        "width": 1066,
+        "height": 800,
+        "variants": [
+          {
+            "src": "/images/gallery/creta/10-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/creta/10-1066.webp",
+            "width": 1066,
+            "height": 800
+          }
+        ]
+      }
+    ],
+    "custin": [
+      {
+        "id": "01",
+        "width": 1200,
+        "height": 570,
+        "variants": [
+          {
+            "src": "/images/gallery/custin/01-640.webp",
+            "width": 640,
+            "height": 304
+          },
+          {
+            "src": "/images/gallery/custin/01-1200.webp",
+            "width": 1200,
+            "height": 570
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 2048,
+        "height": 1366,
+        "variants": [
+          {
+            "src": "/images/gallery/custin/02-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/custin/02-1280.webp",
+            "width": 1280,
+            "height": 854
+          },
+          {
+            "src": "/images/gallery/custin/02-1920.webp",
+            "width": 1920,
+            "height": 1281
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 959,
+        "height": 849,
+        "variants": [
+          {
+            "src": "/images/gallery/custin/03-640.webp",
+            "width": 640,
+            "height": 567
+          },
+          {
+            "src": "/images/gallery/custin/03-959.webp",
+            "width": 959,
+            "height": 849
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 2048,
+        "height": 1366,
+        "variants": [
+          {
+            "src": "/images/gallery/custin/04-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/custin/04-1280.webp",
+            "width": 1280,
+            "height": 854
+          },
+          {
+            "src": "/images/gallery/custin/04-1920.webp",
+            "width": 1920,
+            "height": 1281
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 2048,
+        "height": 1358,
+        "variants": [
+          {
+            "src": "/images/gallery/custin/05-640.webp",
+            "width": 640,
+            "height": 424
+          },
+          {
+            "src": "/images/gallery/custin/05-1280.webp",
+            "width": 1280,
+            "height": 849
+          },
+          {
+            "src": "/images/gallery/custin/05-1920.webp",
+            "width": 1920,
+            "height": 1273
+          }
+        ]
+      }
+    ],
+    "elantra": [
+      {
+        "id": "01",
+        "width": 900,
+        "height": 577,
+        "variants": [
+          {
+            "src": "/images/gallery/elantra/01-640.webp",
+            "width": 640,
+            "height": 410
+          },
+          {
+            "src": "/images/gallery/elantra/01-900.webp",
+            "width": 900,
+            "height": 577
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 900,
+        "height": 599,
+        "variants": [
+          {
+            "src": "/images/gallery/elantra/02-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/elantra/02-900.webp",
+            "width": 900,
+            "height": 599
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 900,
+        "height": 580,
+        "variants": [
+          {
+            "src": "/images/gallery/elantra/03-640.webp",
+            "width": 640,
+            "height": 412
+          },
+          {
+            "src": "/images/gallery/elantra/03-900.webp",
+            "width": 900,
+            "height": 580
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 900,
+        "height": 599,
+        "variants": [
+          {
+            "src": "/images/gallery/elantra/04-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/elantra/04-900.webp",
+            "width": 900,
+            "height": 599
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 768,
+        "height": 511,
+        "variants": [
+          {
+            "src": "/images/gallery/elantra/05-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/elantra/05-768.webp",
+            "width": 768,
+            "height": 511
+          }
+        ]
+      },
+      {
+        "id": "06",
+        "width": 900,
+        "height": 599,
+        "variants": [
+          {
+            "src": "/images/gallery/elantra/06-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/elantra/06-900.webp",
+            "width": 900,
+            "height": 599
+          }
+        ]
+      },
+      {
+        "id": "07",
+        "width": 768,
+        "height": 511,
+        "variants": [
+          {
+            "src": "/images/gallery/elantra/07-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/elantra/07-768.webp",
+            "width": 768,
+            "height": 511
+          }
+        ]
+      }
+    ],
+    "grand-i10": [
+      {
+        "id": "01",
+        "width": 2560,
+        "height": 1920,
+        "variants": [
+          {
+            "src": "/images/gallery/grand-i10/01-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/grand-i10/01-1280.webp",
+            "width": 1280,
+            "height": 960
+          },
+          {
+            "src": "/images/gallery/grand-i10/01-1920.webp",
+            "width": 1920,
+            "height": 1440
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 1920,
+        "height": 2560,
+        "variants": [
+          {
+            "src": "/images/gallery/grand-i10/02-640.webp",
+            "width": 640,
+            "height": 853
+          },
+          {
+            "src": "/images/gallery/grand-i10/02-1280.webp",
+            "width": 1280,
+            "height": 1707
+          },
+          {
+            "src": "/images/gallery/grand-i10/02-1920.webp",
+            "width": 1920,
+            "height": 2560
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 2048,
+        "height": 1307,
+        "variants": [
+          {
+            "src": "/images/gallery/grand-i10/03-640.webp",
+            "width": 640,
+            "height": 408
+          },
+          {
+            "src": "/images/gallery/grand-i10/03-1280.webp",
+            "width": 1280,
+            "height": 817
+          },
+          {
+            "src": "/images/gallery/grand-i10/03-1920.webp",
+            "width": 1920,
+            "height": 1225
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 2048,
+        "height": 1365,
+        "variants": [
+          {
+            "src": "/images/gallery/grand-i10/04-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/grand-i10/04-1280.webp",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "src": "/images/gallery/grand-i10/04-1920.webp",
+            "width": 1920,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 2048,
+        "height": 1365,
+        "variants": [
+          {
+            "src": "/images/gallery/grand-i10/05-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/grand-i10/05-1280.webp",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "src": "/images/gallery/grand-i10/05-1920.webp",
+            "width": 1920,
+            "height": 1280
+          }
+        ]
+      },
+      {
+        "id": "06",
+        "width": 950,
+        "height": 633,
+        "variants": [
+          {
+            "src": "/images/gallery/grand-i10/06-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/grand-i10/06-950.webp",
+            "width": 950,
+            "height": 633
+          }
+        ]
+      },
+      {
+        "id": "07",
+        "width": 884,
+        "height": 589,
+        "variants": [
+          {
+            "src": "/images/gallery/grand-i10/07-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/grand-i10/07-884.webp",
+            "width": 884,
+            "height": 589
+          }
+        ]
+      },
+      {
+        "id": "08",
+        "width": 793,
+        "height": 472,
+        "variants": [
+          {
+            "src": "/images/gallery/grand-i10/08-640.webp",
+            "width": 640,
+            "height": 381
+          },
+          {
+            "src": "/images/gallery/grand-i10/08-793.webp",
+            "width": 793,
+            "height": 472
+          }
+        ]
+      },
+      {
+        "id": "09",
+        "width": 885,
+        "height": 523,
+        "variants": [
+          {
+            "src": "/images/gallery/grand-i10/09-640.webp",
+            "width": 640,
+            "height": 378
+          },
+          {
+            "src": "/images/gallery/grand-i10/09-885.webp",
+            "width": 885,
+            "height": 523
+          }
+        ]
+      }
+    ],
+    "palisade": [
+      {
+        "id": "01",
+        "width": 2560,
+        "height": 1703,
+        "variants": [
+          {
+            "src": "/images/gallery/palisade/01-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/palisade/01-1280.webp",
+            "width": 1280,
+            "height": 852
+          },
+          {
+            "src": "/images/gallery/palisade/01-1920.webp",
+            "width": 1920,
+            "height": 1277
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 1024,
+        "height": 683,
+        "variants": [
+          {
+            "src": "/images/gallery/palisade/02-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/palisade/02-1024.webp",
+            "width": 1024,
+            "height": 683
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 1120,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/palisade/03-640.webp",
+            "width": 640,
+            "height": 343
+          },
+          {
+            "src": "/images/gallery/palisade/03-1120.webp",
+            "width": 1120,
+            "height": 600
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 1120,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/palisade/04-640.webp",
+            "width": 640,
+            "height": 343
+          },
+          {
+            "src": "/images/gallery/palisade/04-1120.webp",
+            "width": 1120,
+            "height": 600
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 1120,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/palisade/05-640.webp",
+            "width": 640,
+            "height": 343
+          },
+          {
+            "src": "/images/gallery/palisade/05-1120.webp",
+            "width": 1120,
+            "height": 600
+          }
+        ]
+      },
+      {
+        "id": "06",
+        "width": 1024,
+        "height": 683,
+        "variants": [
+          {
+            "src": "/images/gallery/palisade/06-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/palisade/06-1024.webp",
+            "width": 1024,
+            "height": 683
+          }
+        ]
+      },
+      {
+        "id": "07",
+        "width": 1024,
+        "height": 683,
+        "variants": [
+          {
+            "src": "/images/gallery/palisade/07-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/palisade/07-1024.webp",
+            "width": 1024,
+            "height": 683
+          }
+        ]
+      }
+    ],
+    "santa-fe": [
+      {
+        "id": "01",
+        "width": 2560,
+        "height": 1702,
+        "variants": [
+          {
+            "src": "/images/gallery/santa-fe/01-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/santa-fe/01-1280.webp",
+            "width": 1280,
+            "height": 851
+          },
+          {
+            "src": "/images/gallery/santa-fe/01-1920.webp",
+            "width": 1920,
+            "height": 1277
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 1200,
+        "height": 861,
+        "variants": [
+          {
+            "src": "/images/gallery/santa-fe/02-640.webp",
+            "width": 640,
+            "height": 459
+          },
+          {
+            "src": "/images/gallery/santa-fe/02-1200.webp",
+            "width": 1200,
+            "height": 861
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 1200,
+        "height": 862,
+        "variants": [
+          {
+            "src": "/images/gallery/santa-fe/03-640.webp",
+            "width": 640,
+            "height": 460
+          },
+          {
+            "src": "/images/gallery/santa-fe/03-1200.webp",
+            "width": 1200,
+            "height": 862
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 1600,
+        "height": 920,
+        "variants": [
+          {
+            "src": "/images/gallery/santa-fe/04-640.webp",
+            "width": 640,
+            "height": 368
+          },
+          {
+            "src": "/images/gallery/santa-fe/04-1280.webp",
+            "width": 1280,
+            "height": 736
+          },
+          {
+            "src": "/images/gallery/santa-fe/04-1600.webp",
+            "width": 1600,
+            "height": 920
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 900,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/santa-fe/05-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/santa-fe/05-900.webp",
+            "width": 900,
+            "height": 600
+          }
+        ]
+      },
+      {
+        "id": "06",
+        "width": 900,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/santa-fe/06-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/santa-fe/06-900.webp",
+            "width": 900,
+            "height": 600
+          }
+        ]
+      },
+      {
+        "id": "07",
+        "width": 1920,
+        "height": 1280,
+        "variants": [
+          {
+            "src": "/images/gallery/santa-fe/07-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/santa-fe/07-1280.webp",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "src": "/images/gallery/santa-fe/07-1920.webp",
+            "width": 1920,
+            "height": 1280
+          }
+        ]
+      }
+    ],
+    "stargazer": [
+      {
+        "id": "01",
+        "width": 1200,
+        "height": 798,
+        "variants": [
+          {
+            "src": "/images/gallery/stargazer/01-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/stargazer/01-1200.webp",
+            "width": 1200,
+            "height": 798
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 1441,
+        "height": 1080,
+        "variants": [
+          {
+            "src": "/images/gallery/stargazer/02-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/stargazer/02-1280.webp",
+            "width": 1280,
+            "height": 959
+          },
+          {
+            "src": "/images/gallery/stargazer/02-1441.webp",
+            "width": 1441,
+            "height": 1080
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 1440,
+        "height": 1080,
+        "variants": [
+          {
+            "src": "/images/gallery/stargazer/03-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/stargazer/03-1280.webp",
+            "width": 1280,
+            "height": 960
+          },
+          {
+            "src": "/images/gallery/stargazer/03-1440.webp",
+            "width": 1440,
+            "height": 1080
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 1024,
+        "height": 768,
+        "variants": [
+          {
+            "src": "/images/gallery/stargazer/04-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/stargazer/04-1024.webp",
+            "width": 1024,
+            "height": 768
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 1440,
+        "height": 1080,
+        "variants": [
+          {
+            "src": "/images/gallery/stargazer/05-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/stargazer/05-1280.webp",
+            "width": 1280,
+            "height": 960
+          },
+          {
+            "src": "/images/gallery/stargazer/05-1440.webp",
+            "width": 1440,
+            "height": 1080
+          }
+        ]
+      },
+      {
+        "id": "06",
+        "width": 1120,
+        "height": 630,
+        "variants": [
+          {
+            "src": "/images/gallery/stargazer/06-640.webp",
+            "width": 640,
+            "height": 360
+          },
+          {
+            "src": "/images/gallery/stargazer/06-1120.webp",
+            "width": 1120,
+            "height": 630
+          }
+        ]
+      },
+      {
+        "id": "07",
+        "width": 853,
+        "height": 491,
+        "variants": [
+          {
+            "src": "/images/gallery/stargazer/07-640.webp",
+            "width": 640,
+            "height": 368
+          },
+          {
+            "src": "/images/gallery/stargazer/07-853.webp",
+            "width": 853,
+            "height": 491
+          }
+        ]
+      },
+      {
+        "id": "08",
+        "width": 1536,
+        "height": 1024,
+        "variants": [
+          {
+            "src": "/images/gallery/stargazer/08-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/stargazer/08-1280.webp",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "src": "/images/gallery/stargazer/08-1536.webp",
+            "width": 1536,
+            "height": 1024
+          }
+        ]
+      },
+      {
+        "id": "09",
+        "width": 1500,
+        "height": 1111,
+        "variants": [
+          {
+            "src": "/images/gallery/stargazer/09-640.webp",
+            "width": 640,
+            "height": 474
+          },
+          {
+            "src": "/images/gallery/stargazer/09-1280.webp",
+            "width": 1280,
+            "height": 948
+          },
+          {
+            "src": "/images/gallery/stargazer/09-1500.webp",
+            "width": 1500,
+            "height": 1111
+          }
+        ]
+      }
+    ],
+    "tucson": [
+      {
+        "id": "01",
+        "width": 2568,
+        "height": 1926,
+        "variants": [
+          {
+            "src": "/images/gallery/tucson/01-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/tucson/01-1280.webp",
+            "width": 1280,
+            "height": 960
+          },
+          {
+            "src": "/images/gallery/tucson/01-1920.webp",
+            "width": 1920,
+            "height": 1440
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 1920,
+        "height": 960,
+        "variants": [
+          {
+            "src": "/images/gallery/tucson/02-640.webp",
+            "width": 640,
+            "height": 320
+          },
+          {
+            "src": "/images/gallery/tucson/02-1280.webp",
+            "width": 1280,
+            "height": 640
+          },
+          {
+            "src": "/images/gallery/tucson/02-1920.webp",
+            "width": 1920,
+            "height": 960
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 1024,
+        "height": 682,
+        "variants": [
+          {
+            "src": "/images/gallery/tucson/03-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/tucson/03-1024.webp",
+            "width": 1024,
+            "height": 682
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 1600,
+        "height": 1066,
+        "variants": [
+          {
+            "src": "/images/gallery/tucson/04-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/tucson/04-1280.webp",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "src": "/images/gallery/tucson/04-1600.webp",
+            "width": 1600,
+            "height": 1066
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 1024,
+        "height": 682,
+        "variants": [
+          {
+            "src": "/images/gallery/tucson/05-640.webp",
+            "width": 640,
+            "height": 426
+          },
+          {
+            "src": "/images/gallery/tucson/05-1024.webp",
+            "width": 1024,
+            "height": 682
+          }
+        ]
+      },
+      {
+        "id": "06",
+        "width": 800,
+        "height": 800,
+        "variants": [
+          {
+            "src": "/images/gallery/tucson/06-640.webp",
+            "width": 640,
+            "height": 640
+          },
+          {
+            "src": "/images/gallery/tucson/06-800.webp",
+            "width": 800,
+            "height": 800
+          }
+        ]
+      },
+      {
+        "id": "07",
+        "width": 800,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/tucson/07-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/tucson/07-800.webp",
+            "width": 800,
+            "height": 600
+          }
+        ]
+      }
+    ],
+    "venue": [
+      {
+        "id": "01",
+        "width": 2568,
+        "height": 1926,
+        "variants": [
+          {
+            "src": "/images/gallery/venue/01-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/venue/01-1280.webp",
+            "width": 1280,
+            "height": 960
+          },
+          {
+            "src": "/images/gallery/venue/01-1920.webp",
+            "width": 1920,
+            "height": 1440
+          }
+        ]
+      },
+      {
+        "id": "02",
+        "width": 800,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/venue/02-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/venue/02-800.webp",
+            "width": 800,
+            "height": 600
+          }
+        ]
+      },
+      {
+        "id": "03",
+        "width": 1280,
+        "height": 960,
+        "variants": [
+          {
+            "src": "/images/gallery/venue/03-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/venue/03-1280.webp",
+            "width": 1280,
+            "height": 960
+          }
+        ]
+      },
+      {
+        "id": "04",
+        "width": 800,
+        "height": 599,
+        "variants": [
+          {
+            "src": "/images/gallery/venue/04-640.webp",
+            "width": 640,
+            "height": 479
+          },
+          {
+            "src": "/images/gallery/venue/04-800.webp",
+            "width": 800,
+            "height": 599
+          }
+        ]
+      },
+      {
+        "id": "05",
+        "width": 800,
+        "height": 534,
+        "variants": [
+          {
+            "src": "/images/gallery/venue/05-640.webp",
+            "width": 640,
+            "height": 427
+          },
+          {
+            "src": "/images/gallery/venue/05-800.webp",
+            "width": 800,
+            "height": 534
+          }
+        ]
+      },
+      {
+        "id": "06",
+        "width": 800,
+        "height": 600,
+        "variants": [
+          {
+            "src": "/images/gallery/venue/06-640.webp",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "src": "/images/gallery/venue/06-800.webp",
+            "width": 800,
+            "height": 600
+          }
+        ]
+      }
+    ]
+  },
   "hero": {
-    "tucson-hev-run1": {
+    "hero-factory": {
       "landscape": [
         {
-          "src": "/images/hero/tucson-hev-run1-960.webp",
+          "src": "/images/hero/hero-factory-960.webp",
           "width": 960,
-          "height": 640
+          "height": 358
         },
         {
-          "src": "/images/hero/tucson-hev-run1-1440.webp",
+          "src": "/images/hero/hero-factory-1440.webp",
           "width": 1440,
-          "height": 960
+          "height": 537
         },
         {
-          "src": "/images/hero/tucson-hev-run1-1920.webp",
+          "src": "/images/hero/hero-factory-1920.webp",
           "width": 1920,
-          "height": 1280
+          "height": 716
+        },
+        {
+          "src": "/images/hero/hero-factory-2560.webp",
+          "width": 2560,
+          "height": 954
         }
       ],
       "square": [
         {
-          "src": "/images/hero/tucson-hev-run1-sq-640.webp",
+          "src": "/images/hero/hero-factory-sq-640.webp",
           "width": 640,
           "height": 640
         },
         {
-          "src": "/images/hero/tucson-hev-run1-sq-1080.webp",
+          "src": "/images/hero/hero-factory-sq-1080.webp",
           "width": 1080,
           "height": 1080
-        }
-      ]
-    },
-    "palisade-0056": {
-      "landscape": [
-        {
-          "src": "/images/hero/palisade-0056-960.webp",
-          "width": 960,
-          "height": 636
         },
         {
-          "src": "/images/hero/palisade-0056-1440.webp",
+          "src": "/images/hero/hero-factory-sq-1440.webp",
           "width": 1440,
-          "height": 953
-        },
-        {
-          "src": "/images/hero/palisade-0056-1920.webp",
-          "width": 1920,
-          "height": 1271
-        }
-      ],
-      "square": [
-        {
-          "src": "/images/hero/palisade-0056-sq-640.webp",
-          "width": 640,
-          "height": 640
-        },
-        {
-          "src": "/images/hero/palisade-0056-sq-1080.webp",
-          "width": 1080,
-          "height": 1080
+          "height": 1440
         }
       ]
     }

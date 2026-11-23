@@ -53,6 +53,9 @@ export function getHeroImage(key: string) {
     landscapeSrcSet: toSrcSet(img.landscape),
     squareSrcSet: toSrcSet(img.square),
     src: sq.src,
+    landscapeSrc: img.landscape.at(0)!.src,
+    landscapeWidth: img.landscape.at(0)!.width,
+    landscapeHeight: img.landscape.at(0)!.height,
     width: sq.width,
     height: sq.height,
   }
@@ -69,4 +72,37 @@ export function preloadCarColor(slug: string, colorId: string, sizes: string) {
   el.sizes = sizes
   el.srcset = img.srcSet
   el.src = img.src
+}
+
+export interface GalleryImage {
+  id: string
+  /** Ảnh vừa (hiển thị trong slider) */
+  src: string
+  srcSet: string
+  /** Ảnh lớn nhất (phóng to) */
+  fullSrc: string
+  fullSrcSet: string
+  width: number
+  height: number
+}
+
+const galleryImgs = ((manifest as { gallery?: unknown }).gallery ?? {}) as Record<string, ResponsiveImage[] & { id?: string }[]>
+
+/** Thư viện ảnh thực tế của mẫu xe (thư mục src/assets/images/gallery/<slug>) */
+export function getGallery(slug: string): GalleryImage[] {
+  return (galleryImgs[slug] ?? []).map((g) => {
+    const sorted = [...g.variants].sort((a, b) => a.width - b.width)
+    const mid = sorted.find((v) => v.width >= 1280) ?? sorted.at(-1)!
+    const full = sorted.at(-1)!
+    const set = (list: typeof sorted) => list.map((v) => `${v.src} ${v.width}w`).join(', ')
+    return {
+      id: (g as unknown as { id: string }).id,
+      src: mid.src,
+      srcSet: set(sorted),
+      fullSrc: full.src,
+      fullSrcSet: set(sorted),
+      width: mid.width,
+      height: mid.height,
+    }
+  })
 }

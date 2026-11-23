@@ -96,7 +96,7 @@ export function FloatingContact() {
             showBar ? 'visible translate-y-0' : 'invisible translate-y-full',
           )}
         >
-          <div className={cn('grid gap-2.5', hotline && zalo ? 'grid-cols-[1.35fr_1fr]' : 'grid-cols-1')}>
+          <div className={cn('grid gap-2.5', hotline && zalo ? 'grid-cols-2' : 'grid-cols-1')}>
             {hotline && (
               <a
                 href={telHref(hotline)}
@@ -116,7 +116,7 @@ export function FloatingContact() {
                 className="flex h-12 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-[#0068FF] text-[0.9375rem] font-bold text-white active:scale-[0.98]"
               >
                 <ZaloIcon className="size-6" />
-                Chat Zalo
+                Nhận giá lăn bánh
               </a>
             )}
           </div>
